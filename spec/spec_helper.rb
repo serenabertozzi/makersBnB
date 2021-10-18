@@ -12,7 +12,7 @@ require 'simplecov-console'
 require 'capybara'
 require 'capybara/rspec'
 
-Capybara.app = Chitter
+Capybara.app = Makersbnb
 
 SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
   SimpleCov::Formatter::Console,

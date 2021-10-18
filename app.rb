@@ -2,7 +2,7 @@ require 'sinatra/base'
 require 'sinatra/reloader'
 require 'sinatra/flash'
 
-class Chitter < Sinatra::Base
+class Makersbnb < Sinatra::Base
   configure :development do
     register Sinatra::Reloader
   end
@@ -12,6 +12,6 @@ class Chitter < Sinatra::Base
   get '/' do
     'makersbnb'
   end
-  
+
   run! if app_file == $0
 end
