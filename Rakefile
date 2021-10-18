@@ -1,10 +1,11 @@
 require 'pg'
 
 task :setup do
-  p "Creating databases..."
+  p "Please close any database GUIs!"
 
   ['makersbnb', 'makersbnb_test'].each do |database|
     connection = PG.connect
+    connection.exec("DROP DATABASE IF EXISTS #{database};")
     connection.exec("CREATE DATABASE #{database};")
     connection = PG.connect(dbname: database)
     connection.exec(
@@ -14,7 +15,7 @@ task :setup do
         last_name varchar(20) NOT NULL,
         email varchar(50) UNIQUE NOT NULL,
         password varchar(100) NOT NULL,
-        host boolean NOT NULL
+        host_id boolean NOT NULL
         );"
     )
     connection.exec(
