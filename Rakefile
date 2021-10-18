@@ -45,3 +45,11 @@ task :setup do
     p 'Success!'
   end
 end
+
+task :setup_test_database do
+  p "Resetting test database..."
+  
+  connection = PG.connect(dbname: 'makersbnb_test')
+
+  connection.exec("TRUNCATE TABLE users, bnbs, bookings;")
+end
