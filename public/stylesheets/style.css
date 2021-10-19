@@ -7,7 +7,23 @@ body {
 * {
   font-family: 'Quicksand', sans-serif;
 }
-
-h1 {
-  color: red;
-}
+.hero-image {
+  min-height: 100vh;
+  background: linear-gradient(rgb(255, 255, 255,0.1), rgba(255, 255, 255)) ,url("/images/hero.jpg");
+  height: 500px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  }
+  
+  .hero-title {
+      color: white;
+      font-size: 10em;
+      text-shadow: 2px 6px 12px #00000086;
+  }
+  
