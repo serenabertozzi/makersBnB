@@ -25,19 +25,6 @@ class Booking
     )
   end
 
-  def self.all
-    result = DatabaseConnection.query(
-      "SELECT * FROM bookings;"
-    )
-
-    result.map do |booking| 
-      Booking.new(
-        id: result[0]['id'], start_date: result[0]['start_date'], end_date: result[0]['end_date'],
-        bnb_id: result[0]['bnb_id'], user_id: result[0]['user_id']
-      )
-    end.sort_by { |booking| booking.start_date }.reverse
-  end
-
   def self.find(id:)
     result = DatabaseConnection.query(
       "SELECT * FROM bookings WHERE id = $1;", [id]
@@ -48,6 +35,20 @@ class Booking
       id: result[0]['id'], start_date: result[0]['start_date'], end_date: result[0]['end_date'],
       bnb_id: result[0]['bnb_id'], user_id: result[0]['user_id']
     )
+  end
+
+  def self.by_user(user_id:)
+    result = DatabaseConnection.query(
+      "SELECT * FROM bookings WHERE user_id = $1;", [user_id]
+    )
+    return unless result.any?
+
+    result.map do |booking| 
+      Booking.new(
+        id: result[0]['id'], start_date: result[0]['start_date'], end_date: result[0]['end_date'],
+        bnb_id: result[0]['bnb_id'], user_id: result[0]['user_id']
+      )
+    end.sort_by { |booking| booking.start_date }.reverse
   end
 
   def self.update(id:, start_date:, end_date:)
@@ -73,6 +74,4 @@ class Booking
       bnb_id: result[0]['bnb_id'], user_id: result[0]['user_id']
     )
   end
-
 end
-

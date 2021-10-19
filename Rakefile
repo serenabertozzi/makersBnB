@@ -27,7 +27,7 @@ task :setup do
         last_name varchar(20) NOT NULL,
         email varchar(50) UNIQUE NOT NULL,
         password varchar(100) NOT NULL,
-        host_id boolean NOT NULL
+        host boolean NOT NULL
         );"
     )
     connection.exec(
