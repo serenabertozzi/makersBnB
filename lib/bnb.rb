@@ -59,7 +59,7 @@ class Bnb
         name: bnb['name'], 
         location: bnb['location'],
         price: bnb['price'], 
-        user_id: result.first['user_id']) 
+        user_id: bnb['user_id']) 
       } 
   end
 
