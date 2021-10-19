@@ -17,7 +17,7 @@ class User
   def self.create(email:, first_name:, last_name:, host_id:, password:, password_confirmation:)
     return false unless password_confirmation?(password, password_confirmation) && !DatabaseConnection.query("SELECT * FROM users WHERE email = $1;", [email]).first
     encrypted_password = BCrypt::Password.create(password)
-    result = DatabaseConnection.query("INSERT INTO users (email, first_name, last_name, host_id, password) VALUES($1, $2, $3, $4, $5) RETURNING id, username;", [email, first_name, last_name, host_id, encrypted_password])
+    result = DatabaseConnection.query("INSERT INTO users (email, first_name, last_name, host_id, password) VALUES($1, $2, $3, $4, $5) RETURNING id, email, first_name, last_name, host_id;", [email, first_name, last_name, host_id, encrypted_password])
     User.new(id: result.first['id'], email: result.first['email'], first_name: result.first['first_name'], last_name: result.first['last_name'], host_id: result.first['host_id'])
   end
 
