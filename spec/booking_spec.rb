@@ -1,3 +1,4 @@
+require 'pg'
 require 'booking'
 require 'database_helpers'
 
