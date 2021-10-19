@@ -25,6 +25,17 @@ class Booking
     )
   end
 
+  def self.available?(bnb_id:, start_date:, end_date:)
+    result = DatabaseConnection.query(
+      "SELECT * FROM bookings
+      WHERE bnb_id = $1
+      AND ($2 BETWEEN start_date AND end_date)
+      OR ($3 BETWEEN start_date AND end_date);",
+      [bnb_id, start_date, end_date]
+    )
+    !result.any?
+  end
+
   def self.find(id:)
     result = DatabaseConnection.query(
       "SELECT * FROM bookings WHERE id = $1;", [id]

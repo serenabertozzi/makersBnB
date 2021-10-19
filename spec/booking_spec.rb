@@ -27,6 +27,42 @@ describe Booking do
       expect(booking.user_id).to eq host_user_id
     end
   end
+
+  describe '.available?' do
+    it 'returns true if the bnb is available within a date range' do
+      # there is currently a booking between 1/11/2021 and 1/12/2021
+      result = Booking.available?(
+        start_date: Time.new(2021, 11, 15),
+        end_date: Time.new(2021, 12, 15),
+        bnb_id: bnb_id,
+      )
+      result2 = Booking.available?(
+        start_date: Time.new(2023, 11, 15),
+        end_date: Time.new(2023, 12, 15),
+        bnb_id: bnb_id,
+      )
+      result3 = Booking.available?(
+        start_date: Time.new(2019, 11, 15),
+        end_date: Time.new(2019, 12, 15),
+        bnb_id: bnb_id,
+      )
+      result4 = Booking.available?(
+        start_date: Time.new(2021, 11, 15),
+        end_date: Time.new(2021, 11, 16),
+        bnb_id: bnb_id,
+      )
+      result5 = Booking.available?(
+        start_date: Time.new(2021, 10, 15),
+        end_date: Time.new(2021, 11, 15),
+        bnb_id: bnb_id,
+      )
+      expect(result).to eq false
+      expect(result2).to eq true
+      expect(result3).to eq true
+      expect(result4).to eq false
+      expect(result5).to eq false
+    end
+  end
   
   describe '.find' do
     it 'finds a specific booking' do
