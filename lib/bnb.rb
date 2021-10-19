@@ -54,12 +54,13 @@ class Bnb
 
   def self.all
     result = DatabaseConnection.query("SELECT * FROM bnbs")
-    result.map { |post| 
-      Bnb.new(id: post['id'], 
-        name: post['name'], 
-        location: post['location'],
-        price: post['price'], 
-        user_id: User.find(id: post['user_id']).email.gsub(/(.)./, '\1*') ) }.reverse
+    result.map { |bnb| 
+      Bnb.new(id: bnb['id'], 
+        name: bnb['name'], 
+        location: bnb['location'],
+        price: bnb['price'], 
+        user_id: result.first['user_id']) 
+      } 
   end
 
 end
