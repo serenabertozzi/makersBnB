@@ -32,5 +32,30 @@ class Makersbnb < Sinatra::Base
     end
   end
 
+  post '/log_out' do 
+    session[:user_id] = nil
+    redirect "/"
+  end
+
+  # Please use below for log out
+  #<form action='/log_out' method="post">
+	#	<input type="submit" value="Logout" style="width:100px;height:30px;">
+  #  </form>
+
+  get '/log_in' do 
+    erb(:log_in)
+  end
+
+  post '/log_in' do
+    user = User.log_in(email: params[:email], password: params[:password])
+    unless user
+      flash[:notice] = "Password did not match, please try again" 
+      redirect(:'log_in')
+    else
+      session[:user_id] = user.id
+      redirect "/"
+    end
+  end
+
   run! if app_file == $0
 end
