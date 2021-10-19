@@ -65,7 +65,7 @@ class Booking
 
   def self.delete(id:)
     result = DatabaseConnection.query(
-      "DELETE FROM bookings WHERE id = $1;", [id]
+      "DELETE FROM bookings WHERE id = $1 RETURNING *;", [id]
     )
 
     Booking.new(
