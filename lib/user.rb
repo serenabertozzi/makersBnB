@@ -1,4 +1,5 @@
 require_relative "database_connection"
+require './spec/setup_connection'
 require 'bcrypt'
 
 class User

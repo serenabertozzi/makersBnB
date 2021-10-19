@@ -1,11 +1,11 @@
 <% flash[:notice] %>
 
 <form action="/user" method="post">
-<input type="text" value="email" placeholder="email">
-<input type="text" value="first_name" placeholder="first_name">
-<input type="text" value="last_name" placeholder="last_name">
-<input type="password" value="password">
-<input type="password" value="password_confirmation">
-<input type="checkbox" value="true" name="host">
+<input type="text" name="email" placeholder="email">
+<input type="text" name="first_name" placeholder="first_name">
+<input type="text" name="last_name" placeholder="last_name">
+<input type="password" name="password">
+<input type="password" name="password_confirmation">
+<input type="checkbox" name="host" value="true">
 <input type="submit" value="Submit">
 </form>
