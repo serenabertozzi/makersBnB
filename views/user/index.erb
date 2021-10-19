@@ -1,11 +1,37 @@
 <% flash[:notice] %>
 
-<form action="/user" method="post">
-<input type="text" name="email" placeholder="email">
-<input type="text" name="first_name" placeholder="first_name">
-<input type="text" name="last_name" placeholder="last_name">
-<input type="password" name="password">
-<input type="password" name="password_confirmation">
-<input type="checkbox" name="host" value="true">
-<input type="submit" value="Submit">
+<div class="container"> 
+  <div class="row">
+    <div class="col-6 mx-auto text-align-center border border-2 border-dark p-5 m-5" >
+    <form action="/user" method="post">
+    <div class="mb-3">
+        <label for="FirstName" class="form-label">First Name</label>
+        <input type="text" name="first_name" class="form-control" id="FirstName">
+    </div>
+    <div class="mb-3">
+        <label for="Surname" class="form-label">Surname</label>
+        <input type="text" name="last_name" class="form-control" id="Surname">
+    </div>
+  <div class="mb-3">
+    <label for="InputEmail" class="form-label">Email address</label>
+    <input type="email" class="form-control" id="InputEmail" aria-describedby="emailHelp">
+  </div>
+  <div class="mb-3">
+    <label for="InputPassword" class="form-label">Password</label>
+    <input type="password" class="form-control" id="InputPassword">
+  </div>
+  <div class="mb-3">
+    <label for="PasswordConfirmation" class="form-label">Password Confirmation</label>
+    <input type="password" class="form-control" id="PasswordConfirmation">
+  </div>
+  <div class="mb-3 form-check">
+    <input type="checkbox" value="true" class="form-check-input" id="Check">
+    <label class="form-check-label" for="Check">Tick if host</label>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+    </div>
+  </div>
+</div>
+
+
