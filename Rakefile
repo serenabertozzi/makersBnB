@@ -9,6 +9,8 @@ task :delete do
     WHERE pg_stat_activity.datname = '#{database}';") # terminates active db connection
     connection.exec("DROP DATABASE #{database};") # deletes db
   end
+  
+  p "Deleted"
 end
 
 
@@ -33,6 +35,7 @@ task :setup do
         id SERIAL PRIMARY KEY,
         name varchar(50) NOT NULL,
         location varchar(50),
+        price smallint NOT NULL,
         user_id INT NOT NULL,
         FOREIGN KEY (user_id)
         REFERENCES users (id)
