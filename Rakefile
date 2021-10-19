@@ -1,11 +1,21 @@
 require 'pg'
 
-task :setup do
-  p "Please close any database GUIs!"
+task :delete do
 
   ['makersbnb', 'makersbnb_test'].each do |database|
     connection = PG.connect
-    connection.exec("DROP DATABASE IF EXISTS #{database};")
+    connection.exec("SELECT pg_terminate_backend (pg_stat_activity.pid)
+    FROM pg_stat_activity
+    WHERE pg_stat_activity.datname = '#{database}';") # terminates active db connection
+    connection.exec("DROP DATABASE #{database};") # deletes db
+  end
+end
+
+
+task :setup do
+
+  ['makersbnb', 'makersbnb_test'].each do |database|
+    connection = PG.connect
     connection.exec("CREATE DATABASE #{database};")
     connection = PG.connect(dbname: database)
     connection.exec(
