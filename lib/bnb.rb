@@ -39,6 +39,17 @@ class Bnb
     )
   end
 
+  def self.where(user_id:)
+    result = DatabaseConnection.query("SELECT * FROM bnbs WHERE user_id = $1;", [user_id])
+    Bnb.new(
+      id: result.first['id'], 
+      name: result.first['name'], 
+      location: result.first['location'], 
+      price: result.first['price'], 
+      user_id: result.first['user_id']
+    )
+  end
+
   def self.update(name:, location:, price:, id:)
     result = DatabaseConnection.query(
       "UPDATE bnbs SET name = $1, location = $2, price = $3 WHERE id = $4 
