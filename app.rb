@@ -8,9 +8,9 @@ require './lib/bnb'
 class Makersbnb < Sinatra::Base
   configure :development do
     register Sinatra::Reloader
+    register Sinatra::Flash
   end
   enable :sessions
-  register Sinatra::Flash
 
   get '/' do
     @user = User.find(id: session[:user_id]) if session[:user_id]
