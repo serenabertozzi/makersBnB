@@ -1,8 +1,8 @@
 require_relative 'database_connection'
 
 if ENV['ENVIRONMENT'] == 'test'
-  DatabaseConnection.setup('chitter_test')
+  DatabaseConnection.setup('makersbnb_test')
 else
-  DatabaseConnection.setup('chitter')
+  DatabaseConnection.setup('makersbnb')
 end
 
