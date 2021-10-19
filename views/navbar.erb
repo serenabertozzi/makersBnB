@@ -14,12 +14,19 @@
             <a class="nav-link" href="#">Link</a>
           </li>
         </ul>
+        <% if @user %>
+         <div class="text-light px-2">Welcome <%= @user.first_name %></div>
+        <form action="/log_out" method="post">
+	        <input type="submit" value="Log out" class="btn btn-light mx-2">
+        </form>
+        <% else %>
         <form action="/user">
 	        <input type="submit" value="Sign Up" class="btn btn-light mx-2">
         </form>
         <form action="/user/login">
           <input type="submit" value="Login" class="btn btn-light mx-2">
         </form>
+        <% end %>
       </div>
     </div>
   </nav>
