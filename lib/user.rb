@@ -22,7 +22,7 @@ class User
   end
 
   def self.log_in(email:, password:)
-    result = DatabaseConnection.query("SELECT * FROM users WHERE email = $1;", [email)
+    result = DatabaseConnection.query("SELECT * FROM users WHERE email = $1;", [email])
     return false unless BCrypt::Password.new(result.first['password']) == password
     User.new(id: result.first['id'], email: result.first['email'], first_name: result.first['first_name'], last_name: result.first['last_name'], host_id: result.first['host_id'])
   end
@@ -32,7 +32,7 @@ class User
     User.new(id: result.first['id'], email: result.first['email'], first_name: result.first['first_name'], last_name: result.first['last_name'], host_id: result.first['host_id'])
   end
 
-  def bnb(bnb_class = BnB)
+  def bnb(bnb_class = Bnb)
     bnb_class.where(user_id: id)
   end
 
