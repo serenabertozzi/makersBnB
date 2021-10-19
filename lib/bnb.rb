@@ -41,6 +41,7 @@ class Bnb
 
   def self.where(user_id:)
     result = DatabaseConnection.query("SELECT * FROM bnbs WHERE user_id = $1;", [user_id])
+    return false if result.first == nil
     Bnb.new(
       id: result.first['id'], 
       name: result.first['name'], 
