@@ -1,9 +1,9 @@
-require 'sinatra/base'
-require 'sinatra/reloader'
-require 'sinatra/flash'
-require './lib/user'
-require './lib/booking'
-require './lib/bnb'
+require "sinatra/base"
+require "sinatra/reloader"
+require "sinatra/flash"
+require "./lib/user"
+require "./lib/booking"
+require "./lib/bnb"
 
 class Makersbnb < Sinatra::Base
   configure :development do
@@ -12,19 +12,19 @@ class Makersbnb < Sinatra::Base
   end
   enable :sessions
 
-  get '/' do
+  get "/" do
     @user = User.find(id: session[:user_id]) if session[:user_id]
     erb(:index)
   end
 
-  get '/user' do 
+  get "/user" do
     erb(:'user/index')
   end
 
-  post '/user' do
-    user = User.create(username: params[:username], password: params[:password], password_confirmation: params[:password_confirmation])
+  post "/user" do
+    user = User.create(first_name: params[:first_name], last_name: params[:last_name], host: params[:host], email: params[:email], password: params[:password], password_confirmation: params[:password_confirmation])
     unless user
-      flash[:notice] = "Password did not match or email already exists" 
+      flash[:notice] = "Password did not match or email already exists"
       redirect(:'user')
     else
       session[:user_id] = user.id
