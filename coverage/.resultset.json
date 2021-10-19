@@ -1,27 +1,18 @@
 {
   "RSpec": {
     "coverage": {
+      "/media/sf_Data/Makers/environment/Projects/makers-bnb/spec/booking_spec.rb": {
+        "lines": [
+
+        ]
+      },
       "/media/sf_Data/Makers/environment/Projects/makers-bnb/spec/user_spec.rb": {
         "lines": [
           1,
-          null,
-          1,
-          null,
-          1,
-          1,
-          1,
-          1,
-          1,
-          null,
-          null,
-          null,
-          1,
-          1,
           1,
           null,
           1,
           null,
-          1,
           1,
           1,
           1,
@@ -35,7 +26,36 @@
           1,
           null,
           1,
+          1,
           null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          null,
+          1,
+          1,
+          1,
+          null,
+          1,
+          1,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
           1,
           1,
           1,
@@ -96,8 +116,19 @@
           null,
           null
         ]
+      },
+      "/media/sf_Data/Makers/environment/Projects/makers-bnb/spec/database_helpers.rb": {
+        "lines": [
+          1,
+          null,
+          1,
+          2,
+          2,
+          2,
+          null
+        ]
       }
     },
-    "timestamp": 1634639080
+    "timestamp": 1634641605
   }
 }
