@@ -39,57 +39,52 @@ describe Booking do
     end
   end
 
-  describe '.find_by_user' do
-    it 'finds all bookings matching a user_id, sorted by newest start_date' do
-      booking2 = Booking.create(
+  describe 'finding users' do
+    let(:booking2) {
+      Booking.create(
         start_date: Time.new(2022, 1),
         end_date: Time.new(2022, 2),
         bnb_id: bnb_id,
         user_id: host_user_id
       )
-      booking3 = Booking.create(
+    }
+    let(:booking3) {
+      Booking.create(
         start_date: Time.new(2022, 3),
         end_date: Time.new(2022, 4),
         bnb_id: bnb_id,
         user_id: host_user_id
       )
+    }
+    before { booking2 }
+    before { booking3 }
 
-      result = Booking.find_by_user(user_id: host_user_id)
-
-      expect(result.length).to eq 3
-      expect(result[0].user_id).to eq host_user_id
-      expect(result[1].user_id).to eq host_user_id
-      expect(result[2].user_id).to eq host_user_id
-      expect(result[0].id).to eq booking3.id
-      expect(result[1].id).to eq booking2.id
-      expect(result[2].id).to eq booking.id
+    describe '.find_by_user' do
+      it 'finds all bookings matching a user_id, sorted by newest start_date' do
+        result = Booking.find_by_user(user_id: host_user_id)
+  
+        expect(result.length).to eq 3
+        expect(result[0].user_id).to eq host_user_id
+        expect(result[1].user_id).to eq host_user_id
+        expect(result[2].user_id).to eq host_user_id
+        expect(result[0].id).to eq booking3.id
+        expect(result[1].id).to eq booking2.id
+        expect(result[2].id).to eq booking.id
+      end
     end
-  end
-
-  describe '.find_by_bnb' do
-    it 'finds all bookings matching a bnb_id, sorted by newest start_date' do
-      booking2 = Booking.create(
-        start_date: Time.new(2022, 1),
-        end_date: Time.new(2022, 2),
-        bnb_id: bnb_id,
-        user_id: host_user_id
-      )
-      booking3 = Booking.create(
-        start_date: Time.new(2022, 3),
-        end_date: Time.new(2022, 4),
-        bnb_id: bnb_id,
-        user_id: host_user_id
-      )
-
-      result = Booking.find_by_bnb(bnb_id: bnb_id)
-
-      expect(result.length).to eq 3
-      expect(result[0].bnb_id).to eq bnb_id
-      expect(result[1].bnb_id).to eq bnb_id
-      expect(result[2].bnb_id).to eq bnb_id
-      expect(result[0].id).to eq booking3.id
-      expect(result[1].id).to eq booking2.id
-      expect(result[2].id).to eq booking.id
+  
+    describe '.find_by_bnb' do
+      it 'finds all bookings matching a bnb_id, sorted by newest start_date' do
+        result = Booking.find_by_bnb(bnb_id: bnb_id)
+  
+        expect(result.length).to eq 3
+        expect(result[0].bnb_id).to eq bnb_id
+        expect(result[1].bnb_id).to eq bnb_id
+        expect(result[2].bnb_id).to eq bnb_id
+        expect(result[0].id).to eq booking3.id
+        expect(result[1].id).to eq booking2.id
+        expect(result[2].id).to eq booking.id
+      end
     end
   end
 
