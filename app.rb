@@ -69,7 +69,7 @@ class Makersbnb < Sinatra::Base
     erb :'bnb/new'
   end
 
-  post '/user/dashboard/:id' do
+  post '/user/dashboard/:id/bnb' do
     Bnb.create(name: params[:name], location: params[:location], price: params[:price], user_id: params[:id])
     redirect 'user/dashboard'
   end
