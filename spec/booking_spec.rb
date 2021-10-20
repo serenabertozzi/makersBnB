@@ -1,10 +1,9 @@
-require 'pg'
 require 'booking'
 require 'database_helpers'
 
 describe Booking do
   let(:host_user_id) { create_host } # from database_helpers
-  let(:bnb_id) { create_bnb(host_user_id) } # isolates this class for testing
+  let(:bnb_id) { create_bnb(host_id: host_user_id) } # isolates this class for testing
   let(:booking) {
     Booking.create(
       start_date: Time.new(2021, 11),
