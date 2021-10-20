@@ -11,6 +11,7 @@ class Makersbnb < Sinatra::Base
     register Sinatra::Flash
   end
   enable :sessions
+  enable :method_override
 
   get "/" do
     @user = User.find(id: session[:user_id]) if session[:user_id]
@@ -68,7 +69,12 @@ class Makersbnb < Sinatra::Base
     erb :'bnb/new'
   end
 
-  get "/listings/all" do
+  post '/user/dashboard/:id/bnb' do
+    Bnb.create(name: params[:name], location: params[:location], price: params[:price], user_id: params[:id])
+    redirect 'user/dashboard'
+  end
+  
+   get "/listings/all" do
     @bnb = Bnb.all
     erb :'listings/all'
   end
