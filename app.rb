@@ -38,11 +38,6 @@ class Makersbnb < Sinatra::Base
     redirect "/"
   end
 
-  # Please use below for log out
-  #<form action='/log_out' method="post">
-  #	<input type="submit" value="Logout" style="width:100px;height:30px;">
-  #  </form>
-
   get "/user/login" do
     erb(:"user/login")
   end
@@ -60,8 +55,17 @@ class Makersbnb < Sinatra::Base
 
   get "/user/dashboard" do
     @user_id = session[:user_id]
-    @bnb = Bnb.where(user_id: session[:user_id])
-    erb(:'user/dashboard')
+    @user = User.find(id: @user_id) if @user_id
+    if @user.host != "f"
+      @bnb = Bnb.where(user_id: session[:user_id])
+      erb(:'user/dashboard')
+    else
+      def find_hotel(id)
+        Bnb.find(id: id).name
+      end
+      @booking = Booking.find_by_user(user_id: @user_id)
+      erb(:'user/guest_dashboard')
+    end
   end
 
   get "/user/dashboard/:id/bnb/new" do
@@ -97,6 +101,11 @@ class Makersbnb < Sinatra::Base
   patch '/user/dashboard/:id/bnb/:bnb_id' do
     Bnb.update(id: params[:bnb_id], name: params[:name], location: params[:location], price: params[:price])
     redirect 'user/dashboard'
+  end
+
+  delete '/user/dashboard/:id/booking/:booking_id' do
+    Bnb.delete(id: params[:booking_id])
+    redirect 'user/guest_dashboard'
   end
 
   run! if app_file == $0
