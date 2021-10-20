@@ -42,13 +42,13 @@ class Bnb
   def self.where(user_id:)
     result = DatabaseConnection.query("SELECT * FROM bnbs WHERE user_id = $1;", [user_id])
     return false if result.first == nil
-    Bnb.new(
-      id: result.first['id'], 
-      name: result.first['name'], 
-      location: result.first['location'], 
-      price: result.first['price'], 
-      user_id: result.first['user_id']
-    )
+    result.map { |bnb| Bnb.new(
+      id: bnb['id'], 
+      name: bnb['name'], 
+      location: bnb['location'], 
+      price: bnb['price'], 
+      user_id: bnb['user_id']
+    ) }
   end
 
   def self.update(name:, location:, price:, id:)
