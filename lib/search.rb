@@ -20,6 +20,7 @@ class Search
       AND price BETWEEN $2 AND $3
       ;", [location.downcase, min_price, max_price] # making it case insensitive
     )
+    return unless results.any?
     results.map do |result| 
       Search.new(
         bnb_id: result['id'], name: result['name'], location: result['location'],
