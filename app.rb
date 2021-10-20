@@ -107,7 +107,18 @@ class Makersbnb < Sinatra::Base
 
   delete "/user/dashboard/:id/booking/:booking_id" do
     Bnb.delete(id: params[:booking_id])
-    redirect "user/guest_dashboard"
+    redirect 'user/dashboard'
+  end
+
+  get "/user/dashboard/:id/booking/:booking_id/edit" do
+    @user_id = session[:user_id]
+    @booking = Booking.find(id: params[:booking_id])
+    erb :"bnb/edit"
+  end
+
+  patch "/user/dashboard/:id/booking/:booking_id" do
+    Booking.update(id: params[:booking_id], start_date: params[:start_date], end_date: params[:end_date])
+    redirect "user/dashboard"
   end
 
   run! if app_file == $0
