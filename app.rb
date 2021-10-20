@@ -57,15 +57,20 @@ class Makersbnb < Sinatra::Base
     end
   end
 
-  get '/user/dashboard' do 
+  get "/user/dashboard" do
     @user_id = session[:user_id]
     @bnb = Bnb.where(user_id: session[:user_id])
     erb(:'user/dashboard')
   end
 
-  get '/user/dashboard/:id/bnb/new' do
+  get "/user/dashboard/:id/bnb/new" do
     @user_id = params[:id]
     erb :'bnb/new'
+  end
+
+  get "/listings/all" do
+    @bnb = Bnb.all
+    erb :'listings/all'
   end
 
   run! if app_file == $0

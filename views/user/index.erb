@@ -24,9 +24,14 @@
     <label for="PasswordConfirmation" class="form-label">Password Confirmation</label>
     <input type="password" name="password_confirmation" class="form-control" id="PasswordConfirmation">
   </div>
+
   <div class="mb-3 form-check">
-    <input type="checkbox" class="form-check-input" id="Check" value="true" name="host">
-    <label class="form-check-label" for="Check">Tick if host</label>
+    <input type="radio" class="form-check-input" id="Check" value="true" name="host">
+    <label class="d-flex ps-1 justify-content-start form-check-label" for="Check">Host</label>
+  </div>
+  <div class="mb-3 form-check">
+    <input type="radio" class="form-check-input" id="Check" value="false" name="host">
+    <label class="d-flex ps-1  justify-content-start form-check-label" for="Check">Guest</label>
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
