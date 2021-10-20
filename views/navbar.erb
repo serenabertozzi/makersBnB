@@ -15,7 +15,9 @@
           </li> %>
         </ul>
         <% if @user %>
-         <a href="user/dashboard" class="text-light px-2"><%= @user.first_name %></a>
+        <form action="/user/dashboard">
+	        <input type="submit" value="<%= @user.first_name %>" class="btn btn-link mx-2">
+        </form>
         <form action="/log_out" method="post">
 	        <input type="submit" value="Log out" class="btn btn-light mx-2">
         </form>
