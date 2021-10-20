@@ -1,0 +1,21 @@
+<h1>Guest Dashboard</h1>
+
+<ul class="flex-container wrap">
+  <% if @booking %>
+  <% @booking.each do |reservation| %>
+    <li class="flex-item reservation">
+        hotel: <%= find_hotel(reservation.bnb_id) %><br>
+        start_date <%= reservation.start_date %> <br>
+        <p>end_date: <%= reservation.end_date %></p>
+      <form style="display: inline;" action="/user/dashboard/<%= @user_id %>/booking/<%= reservation.id %>" method="post">
+        <input type='hidden' name='_method' value='DELETE'/>
+        <input type="submit" value="Delete" />
+      </form>
+      <form style="display: inline;" action="/user/dashboard/<%= @user_id %>/booking/<%= reservation.id %>/edit" method="get">
+        <input type="submit" value="Edit" />
+      </form>
+    </li>
+  <% end %>
+  <% else %>
+  No Bookings
+  <% end %>
