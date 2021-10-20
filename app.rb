@@ -11,6 +11,7 @@ class Makersbnb < Sinatra::Base
     register Sinatra::Flash
   end
   enable :sessions
+  enable :method_override
 
   get "/" do
     @user = User.find(id: session[:user_id]) if session[:user_id]
@@ -59,13 +60,18 @@ class Makersbnb < Sinatra::Base
 
   get '/user/dashboard' do 
     @user_id = session[:user_id]
-    @bnb = Bnb.where(user_id: session[:user_id])
+    @bnb = [Bnb.where(user_id: session[:user_id])]
     erb(:'user/dashboard')
   end
 
   get '/user/dashboard/:id/bnb/new' do
     @user_id = params[:id]
     erb :'bnb/new'
+  end
+
+  post '/user/dashboard/:id/bnb' do
+    Bnb.create(name: params[:name], location: params[:location], price: params[:price], user_id: params[:id])
+    redirect 'user/dashboard'
   end
 
   run! if app_file == $0
