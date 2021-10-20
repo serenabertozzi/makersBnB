@@ -89,6 +89,7 @@ class Makersbnb < Sinatra::Base
 
   get "/listings/bnb/:id" do
     @bnb = Bnb.find(id: params[:id])
+    @bookings = Booking.find_by_bnb(bnb_id: params[:id]) if @user
     erb :'listings/bnb'
   end
 
