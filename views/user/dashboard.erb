@@ -9,11 +9,11 @@
     <li class="flex-item bnb">
         Name <%= bnb.name %> <br>
         <p>Location: <%= bnb.location %></p>
-      <form style="display: inline;" action="/user/<%= @user_id %>/bnb/<%= bnb.id %>" method="post">
+      <form style="display: inline;" action="/user/dashboard/<%= @user_id %>/bnb/<%= bnb.id %>" method="post">
         <input type='hidden' name='_method' value='DELETE'/>
         <input type="submit" value="Delete" />
       </form>
-      <form style="display: inline;" action="/user/<%= @user_id %>/bnb/<%= bnb.id %>/edit" method="get">
+      <form style="display: inline;" action="/user/dashboard/<%= @user_id %>/bnb/<%= bnb.id %>/edit" method="get">
         <input type="submit" value="Edit" />
       </form>
     </li>
