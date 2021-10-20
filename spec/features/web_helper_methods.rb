@@ -8,7 +8,7 @@ def host_login
 end
 
 def log_out
-  find(:xpath, "/html/body/nav/div/div/form/input").click
+  find(:xpath, "/html/body/nav/div/div/form[2]/input").click
 end
 
 def make_bnb
@@ -19,7 +19,15 @@ def make_bnb
 end
 
 def host_sign_up
-  find(:xpath, "/html/body/nav/div/div/form[1]/input").click
+  # User.create(
+  #   email: 'Host@mailer.com', 
+  #   first_name: 'Host Martin', 
+  #   last_name: 'Surname', 
+  #   host: true, 
+  #   password:'test_password', 
+  #   password_confirmation:'test_password')
+
+   find(:xpath, "/html/body/nav/div/div/form[1]/input").click
     fill_in 'first_name', with: 'Host Martin'
     fill_in 'last_name', with: 'Surname'
     fill_in 'email', with: 'Host@mailer.com'
@@ -30,6 +38,15 @@ def host_sign_up
 end
 
 def guest_sign_up
+
+  # User.create(
+  #   email: 'Guest@mailer.com', 
+  #   first_name: 'Guest Jane', 
+  #   last_name: 'Doe', 
+  #   host: false, 
+  #   password:'test_password', 
+  #   password_confirmation:'test_password')
+
   find(:xpath, "/html/body/nav/div/div/form[1]/input").click
    
   fill_in 'first_name', with: 'Guest Jane'
