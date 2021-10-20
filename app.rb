@@ -13,8 +13,11 @@ class Makersbnb < Sinatra::Base
   enable :sessions
   enable :method_override
 
-  get "/" do
+  before do
     @user = User.find(id: session[:user_id]) if session[:user_id]
+  end
+
+  get "/" do
     erb(:index)
   end
 
@@ -107,7 +110,7 @@ class Makersbnb < Sinatra::Base
 
   delete "/user/dashboard/:id/booking/:booking_id" do
     Booking.delete(id: params[:booking_id])
-    redirect 'user/dashboard'
+    redirect "user/dashboard"
   end
 
   get "/user/dashboard/:id/booking/:booking_id/edit" do
