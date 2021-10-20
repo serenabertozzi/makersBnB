@@ -3,6 +3,9 @@
 <div class="row my-3">
   <div class="col">
     <h1>Welcome <%= @user.first_name %></h1>
+        <form action='/user/dashboard/<%= @user_id %>/bnb/new'> 
+          <input type="submit" value="Add new bnb" class="btn btn-dark mx-2">
+        </form>
   </div>
 </div>
 
@@ -33,11 +36,8 @@
         </div>
     <% end %>
     <% else %>
-    No Bookings
+    No apartment listed
     <% end %>
   </div>
 </div>
 </div>
-
-
-
