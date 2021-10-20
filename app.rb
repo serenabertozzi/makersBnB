@@ -60,7 +60,7 @@ class Makersbnb < Sinatra::Base
 
   get '/user/dashboard' do 
     @user_id = session[:user_id]
-    @bnb = [Bnb.where(user_id: session[:user_id])]
+    @bnb = Bnb.where(user_id: session[:user_id])
     erb(:'user/dashboard')
   end
 
@@ -69,7 +69,7 @@ class Makersbnb < Sinatra::Base
     erb :'bnb/new'
   end
 
-  post '/user/dashboard/:id/bnb' do
+  post '/user/dashboard/:id' do
     Bnb.create(name: params[:name], location: params[:location], price: params[:price], user_id: params[:id])
     redirect 'user/dashboard'
   end
