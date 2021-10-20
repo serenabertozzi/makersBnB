@@ -1,15 +1,27 @@
 <div style="text-align: center;">
-  <h1>Edit bnb</h1>
-  <h4>CURRENT DETAILS</h4>
-  <h4>Name: <%= @bnb.name %></h4>
-  <h4>Location: <%= @bnb.location %></h4>
-  <h4>Price: <%= @bnb.price %></h4>
-  <h3>New details:</h3>
-  <form action="/user/dashboard/<%= @user_id %>/bnb/<%= @bnb.id %>" method="post">
+  <h1 class="mt-3">Edit listing </h1>
+  <div class="container"> 
+  <div class="row">
+    <div class="col-6 mx-auto text-align-center border border-2 border-dark p-5 m-5" >
+    <form action="/user/dashboard/<%= @user_id %>/bnb/<%= @bnb.id %>" method="post">
     <input type="hidden" name="_method" value="PATCH" />
-    <input name="name" type="text" value="<%= @bnb.name %>" />
-    <input name="location" type="text" value="<%= @bnb.location %>" />
-    <input name="price" type="number" value="<%= @bnb.price %>" />
-    <input value="Submit" type="submit" style="width:100px;height:30px;"/>
-  </form>
+  <div class="mb-3">
+
+    <label for="Name" class="form-label">Name</label>
+    <input type="text" class="form-control" name="name" id="Name" placeholder="<%= @bnb.name %>" value="<%= @bnb.name %>"
+     >
+  </div>
+  <div class="mb-3">
+    <label for="Location" class="form-label">Location</label>
+    <input type="text" class="form-control" name="location" id="Location" placeholder="<%= @bnb.location %>" value="<%= @bnb.location %>">
+  </div>
+  <div class="mb-3">
+  <label for="Price" class="form-label">Price</label>
+  <input type="number" class="form-control" name="price" id="Price" placeholder="<%= @bnb.price %>" value="<%= @bnb.price %>">
+</div>
+  <button type="submit" class="btn btn-dark">Update</button>
+</form>
+    </div>
+  </div>
+</div>
 </div>
