@@ -6,7 +6,7 @@ feature 'WEBPAGE: Log in Host' do
     log_out
 
     host_login
-    expect(page).to have_content "Host Martin" # Navbar name display
+    expect(page).to have_button(value: 'Host Martin') # Navbar name display
   end
 
   scenario ':log out' do

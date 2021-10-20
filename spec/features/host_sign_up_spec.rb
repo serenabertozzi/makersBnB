@@ -4,7 +4,8 @@ feature 'WEBPAGE: Sign up a New Host' do
     visit('/')
     host_sign_up
 
-    expect(page).to have_content "Host Martin" # Navbar name display
+    # expect(page).to have_content "Host Martin" # Navbar name display
+    expect(page).to have_button(value: 'Host Martin')
     expect(page).to_not have_content "Guest Jane"
   end
 
