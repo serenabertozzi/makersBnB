@@ -1,0 +1,15 @@
+<div style="text-align: center;">
+  <h1>Edit bnb</h1>
+  <h4>CURRENT DETAILS</h4>
+  <h4>Name: <%= @bnb.name %></h4>
+  <h4>Location: <%= @bnb.location %></h4>
+  <h4>Price: <%= @bnb.price %></h4>
+  <h3>New details:</h3>
+  <form action="/user/dashboard/<%= @user_id %>/bnb/<%= @bnb.id %>" method="post">
+    <input type="hidden" name="_method" value="PATCH" />
+    <input name="name" type="text" value="<%= @bnb.name %>" />
+    <input name="location" type="text" value="<%= @bnb.location %>" />
+    <input name="price" type="number" value="<%= @bnb.price %>" />
+    <input value="Submit" type="submit" style="width:100px;height:30px;"/>
+  </form>
+</div>
