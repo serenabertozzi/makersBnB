@@ -11,12 +11,11 @@ describe Bnb do
     price: '300', 
     user_id: host_user_id) 
   }
+  before { bnb }
+  # create a new bnb (and object) that can be referenced with 'bnb'
 
   describe '.create' do
-
     it 'creates a new bnb' do
-
-      bnb
       persisted_data = persisted_data(table: 'bnbs', id: bnb.id)
 
       expect(bnb).to be_a Bnb
@@ -30,7 +29,6 @@ describe Bnb do
 
   describe '.update' do
     it 'updates an existing bnb' do
-
       Bnb.update(
         name:'Lisbon House', 
         location: 'Lisbon', 
@@ -46,8 +44,6 @@ describe Bnb do
 
   describe '.delete' do
     it 'deletes a new bnb' do
-
-      bnb
       Bnb.delete(id: bnb.id)
 
       expect(Bnb.all.length).to eq 0
@@ -57,8 +53,6 @@ describe Bnb do
 
   describe '.all' do
     it 'returns all 2 bnbs' do
-
-      bnb
       Bnb.create(
         name:'Second House', 
         location: 'Second City', 
@@ -85,11 +79,41 @@ describe Bnb do
     end
   end
 
+  describe '.available?' do
+    it 'returns true if the bnb is available within a date range' do
+      create_booking(bnb.id, host_user_id, Time.new(2021, 11), Time.new(2021, 12))
+      # bnb is booked from 2021/11/1 to 2021/12/1
 
-  
-
-
-
-
-
+      result1 = Bnb.available?( # start date overlaps
+        start_date: Time.new(2021, 11, 15),
+        end_date: Time.new(2021, 12, 15),
+        bnb_id: bnb.id,
+      )
+      result2 = Bnb.available?( # end date overlap
+        start_date: Time.new(2021, 10, 15),
+        end_date: Time.new(2021, 11, 15),
+        bnb_id: bnb.id,
+      )
+      result3 = Bnb.available?( # booking before
+        start_date: Time.new(2019, 11, 15),
+        end_date: Time.new(2019, 12, 15),
+        bnb_id: bnb.id,
+      )
+      result4 = Bnb.available?( # booking after
+        start_date: Time.new(2023, 11, 15),
+        end_date: Time.new(2023, 12, 15),
+        bnb_id: bnb.id,
+      )
+      result5 = Bnb.available?( # booking inside the range
+        start_date: Time.new(2021, 11, 15),
+        end_date: Time.new(2021, 11, 16),
+        bnb_id: bnb.id,
+      )
+      expect(result1).to eq false
+      expect(result2).to eq false
+      expect(result3).to eq true
+      expect(result4).to eq true
+      expect(result5).to eq false
+    end
+  end
 end

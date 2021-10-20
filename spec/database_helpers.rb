@@ -19,7 +19,15 @@ def create_bnb(host)
   connection = PG.connect(dbname: 'makersbnb_test')
   bnb_result = connection.exec(
     "INSERT INTO bnbs(name, location, price, user_id)
-    VALUES('Test BNB', 'London', '30', '#{host_user_id}') RETURNING *;"
+    VALUES('Test BNB', 'London', '30', '#{host}') RETURNING *;"
   )
   bnb_result[0]['id']
+end
+
+def create_booking(bnb_id, host_id, start_date, end_date)
+  connection = PG.connect(dbname: 'makersbnb_test')
+  booking_result = connection.exec(
+    "INSERT INTO bookings(start_date, end_date, bnb_id, user_id)
+    VALUES('#{start_date}', '#{end_date}', #{bnb_id}, #{host_id}) RETURNING *;",
+  )
 end
