@@ -26,7 +26,7 @@ class Makersbnb < Sinatra::Base
     user = User.create(first_name: params[:first_name], last_name: params[:last_name], host: params[:host], email: params[:email], password: params[:password], password_confirmation: params[:password_confirmation])
     unless user
       flash[:notice] = "Password did not match or email already exists"
-      redirect(:'user')
+      redirect "/user"
     else
       session[:user_id] = user.id
       redirect "/"
@@ -60,9 +60,10 @@ class Makersbnb < Sinatra::Base
       @bnb = Bnb.where(user_id: session[:user_id])
       erb(:'user/dashboard')
     else
-      def find_hotel(id)
+      def find_bnb(id)
         Bnb.find(id: id).name
       end
+
       @booking = Booking.find_by_user(user_id: @user_id)
       erb(:'user/guest_dashboard')
     end
@@ -73,39 +74,51 @@ class Makersbnb < Sinatra::Base
     erb :'bnb/new'
   end
 
-  post '/user/dashboard/:id/bnb' do
+  post "/user/dashboard/:id/bnb" do
     Bnb.create(name: params[:name], location: params[:location], price: params[:price], user_id: params[:id])
-    redirect 'user/dashboard'
+    redirect "user/dashboard"
   end
-  
-   get "/listings/all" do
+
+  get "/listings/all" do
     @bnb = Bnb.all
     erb :'listings/all'
   end
 
-  get "/listings/bnb" do 
+  get "/listings/bnb/:id" do
+    @bnb = Bnb.find(id: params[:id])
     erb :'listings/bnb'
   end
 
-  delete '/user/dashboard/:id/bnb/:bnb_id' do
+  delete "/user/dashboard/:id/bnb/:bnb_id" do
     Bnb.delete(id: params[:bnb_id])
-    redirect 'user/dashboard'
+    redirect "user/dashboard"
   end
 
-  get '/user/dashboard/:id/bnb/:bnb_id/edit' do
+  get "/user/dashboard/:id/bnb/:bnb_id/edit" do
     @user_id = session[:user_id]
     @bnb = Bnb.find(id: params[:bnb_id])
     erb :"bnb/edit"
   end
 
-  patch '/user/dashboard/:id/bnb/:bnb_id' do
+  patch "/user/dashboard/:id/bnb/:bnb_id" do
     Bnb.update(id: params[:bnb_id], name: params[:name], location: params[:location], price: params[:price])
+    redirect "user/dashboard"
+  end
+
+  delete "/user/dashboard/:id/booking/:booking_id" do
+    Booking.delete(id: params[:booking_id])
     redirect 'user/dashboard'
   end
 
-  delete '/user/dashboard/:id/booking/:booking_id' do
-    Bnb.delete(id: params[:booking_id])
-    redirect 'user/guest_dashboard'
+  get "/user/dashboard/:id/booking/:booking_id/edit" do
+    @user_id = session[:user_id]
+    @booking = Booking.find(id: params[:booking_id])
+    erb :"user/edit_booking"
+  end
+
+  patch "/user/dashboard/:id/booking/:booking_id" do
+    Booking.update(id: params[:booking_id], start_date: params[:start_date], end_date: params[:end_date])
+    redirect "user/dashboard"
   end
 
   run! if app_file == $0

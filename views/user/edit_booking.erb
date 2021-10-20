@@ -1,0 +1,14 @@
+<div style="text-align: center;">
+  <h1>Edit Booking</h1>
+  <h4>CURRENT DETAILS</h4>
+  <h4>Hotel: <%= find_bnb(@booking.bnb_id) %></h4>
+  <h4>start: <%= @booking.start_date %></h4>
+  <h4>end: <%= @booking.end_date %></h4>
+  <h3>New details:</h3>
+  <form action="/user/dashboard/<%= @user_id %>/booking/<%= @booking.id %>" method="post">
+    <input type="hidden" name="_method" value="PATCH" />
+    <input name="start_date" type="date" value="<%= @booking.start_date %>" />
+    <input name="end_date" type="date" value="<%= @booking.end_date%>" />
+    <input value="Submit" type="submit" style="width:100px;height:30px;"/>
+  </form>
+</div>

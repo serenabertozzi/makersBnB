@@ -1,21 +1,42 @@
-<h1>Guest Dashboard</h1>
 
-<ul class="flex-container wrap">
-  <% if @booking %>
-  <% @booking.each do |reservation| %>
-    <li class="flex-item reservation">
-        hotel: <%= find_hotel(reservation.bnb_id) %><br>
-        start_date <%= reservation.start_date %> <br>
-        <p>end_date: <%= reservation.end_date %></p>
-      <form style="display: inline;" action="/user/dashboard/<%= @user_id %>/booking/<%= reservation.id %>" method="post">
-        <input type='hidden' name='_method' value='DELETE'/>
-        <input type="submit" value="Delete" />
-      </form>
-      <form style="display: inline;" action="/user/dashboard/<%= @user_id %>/booking/<%= reservation.id %>/edit" method="get">
-        <input type="submit" value="Edit" />
-      </form>
-    </li>
-  <% end %>
-  <% else %>
-  No Bookings
-  <% end %>
+<div class="container my-5">
+  <div class="row my-3">
+    <div class="col">
+      <h1>Welcome <%= @user.first_name %></h1>
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <% if @booking %>
+      <% @booking.each do |reservation| %>
+          <div class="card mb-3" style="max-width: 840px;">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="https://picsum.photos/200/300" class="img-fluid rounded-start" alt="...">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title"><%= find_bnb(reservation.bnb_id) %></h5>
+                  <p class="card-text"><small class="text-muted">Start date: <%= reservation.start_date %></small></p>
+                  <p class="card-text"><small class="text-muted">End date: <%= reservation.end_date %></small></p>
+                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <form style="display: inline;" action="/user/dashboard/<%= @user_id %>/booking/<%= reservation.id %>" method="post">
+                        <input type='hidden' name='_method' value='DELETE'/>
+                        <input class="btn btn-dark mx-2" type="submit" value="Delete" />
+                      </form>
+                      <form style="display: inline;" action="/user/dashboard/<%= @user_id %>/booking/<%= reservation.id %>/edit" method="get">
+                        <input class="btn btn-dark mx-2" type="submit" value="Edit" />
+                      </form>
+                </div>
+              </div>
+            </div>
+          </div>
+      <% end %>
+      <% else %>
+      No Bookings
+      <% end %>
+    </div>
+  </div>
+</div>

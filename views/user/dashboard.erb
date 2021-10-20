@@ -1,24 +1,43 @@
-<h1>Your Dashboard</h1>
+
+<div class="container my-5">
+<div class="row my-3">
+  <div class="col">
+    <h1>Welcome <%= @user.first_name %></h1>
+        <form action='/user/dashboard/<%= @user_id %>/bnb/new'> 
+          <input type="submit" value="Add new bnb" class="btn btn-dark mx-2">
+        </form>
+  </div>
 </div>
-<form action='/user/dashboard/<%= @user_id %>/bnb/new'>
-  <input type="submit" value="Add new bnb" style="width:130px;height:40px;">
-</form>
-<ul class="flex-container wrap">
-  <% if @bnb %>
-  <% @bnb.each do |bnb| %>
-    <li class="flex-item bnb">
-        Name <%= bnb.name %> <br>
-        <p>Location: <%= bnb.location %></p>
-      <form style="display: inline;" action="/user/dashboard/<%= @user_id %>/bnb/<%= bnb.id %>" method="post">
-        <input type='hidden' name='_method' value='DELETE'/>
-        <input type="submit" value="Delete" />
-      </form>
-      <form style="display: inline;" action="/user/dashboard/<%= @user_id %>/bnb/<%= bnb.id %>/edit" method="get">
-        <input type="submit" value="Edit" />
-      </form>
-    </li>
-  <% end %>
-  <% else %>
-  No BNBs
-  <% end %>
-</ul>
+
+<div class="row">
+  <div class="col">
+    <% if @bnb %>
+    <% @bnb.each do |bnb| %>
+        <div class="card mb-3" style="max-width: 840px;">
+          <div class="row g-0">
+            <div class="col-md-4">
+              <img src="https://picsum.photos/200/300" class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title"><%= bnb.name %></h5>
+                <p class="card-text"><small class="text-muted">Location: <%= bnb.location %></small></p>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                  <form style="display: inline;" action="/user/dashboard/<%= @user_id %>/bnb/<%= bnb.id %>" method="post">
+                      <input type='hidden' name='_method' value='DELETE'/>
+                      <input class="btn btn-dark mx-2" type="submit" value="Delete" />
+                    </form>
+                    <form style="display: inline;" action="/user/dashboard/<%= @user_id %>/bnb/<%= bnb.id %>/edit" method="get">
+                      <input class="btn btn-dark mx-2" type="submit" value="Edit" />
+                    </form>
+              </div>
+            </div>
+          </div>
+        </div>
+    <% end %>
+    <% else %>
+    No apartment listed
+    <% end %>
+  </div>
+</div>
+</div>
