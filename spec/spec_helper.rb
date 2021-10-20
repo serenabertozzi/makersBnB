@@ -11,6 +11,7 @@ require 'simplecov'
 require 'simplecov-console'
 require 'capybara'
 require 'capybara/rspec'
+require 'features/web_helper_methods.rb'
 
 Capybara.app = Makersbnb
 
