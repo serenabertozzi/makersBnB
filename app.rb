@@ -79,5 +79,8 @@ class Makersbnb < Sinatra::Base
     erb :'listings/all'
   end
 
+  get "/listings/bnb" do 
+    erb :'listings/bnb'
+  end
   run! if app_file == $0
 end
