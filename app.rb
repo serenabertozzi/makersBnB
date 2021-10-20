@@ -79,5 +79,10 @@ class Makersbnb < Sinatra::Base
     erb :'listings/all'
   end
 
+  delete '/user/dashboard/:id/bnb/:bnb_id' do
+    Bnb.delete(id: params[:bnb_id])
+    redirect 'user/dashboard'
+  end
+
   run! if app_file == $0
 end
