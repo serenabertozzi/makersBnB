@@ -60,9 +60,10 @@ class Makersbnb < Sinatra::Base
       @bnb = Bnb.where(user_id: session[:user_id])
       erb(:'user/dashboard')
     else
-      def find_hotel(id)
+      def find_bnb(id)
         Bnb.find(id: id).name
       end
+
       @booking = Booking.find_by_user(user_id: @user_id)
       erb(:'user/guest_dashboard')
     end
@@ -104,9 +105,9 @@ class Makersbnb < Sinatra::Base
     redirect "user/dashboard"
   end
 
-  delete '/user/dashboard/:id/booking/:booking_id' do
+  delete "/user/dashboard/:id/booking/:booking_id" do
     Bnb.delete(id: params[:booking_id])
-    redirect 'user/guest_dashboard'
+    redirect "user/guest_dashboard"
   end
 
   run! if app_file == $0
