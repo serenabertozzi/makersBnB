@@ -6,7 +6,7 @@ def host_sign_up
     fill_in 'email', with: 'Host@mailer.com'
     fill_in 'password', with: 'test_password'
     fill_in 'password_confirmation', with: 'test_password'
-    check 'host'
+    find(:xpath, "//input[@value='true']").click
     click_button 'Submit'
 end
 
@@ -18,6 +18,7 @@ def guest_sign_up
   fill_in 'email', with: 'Guest@mailer.com'
   fill_in 'password', with: 'test_password'
   fill_in 'password_confirmation', with: 'test_password'
+  find(:xpath, "//input[@value='false']").click
   click_button 'Submit'
 end
 
