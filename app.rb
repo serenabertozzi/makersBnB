@@ -4,6 +4,7 @@ require "sinatra/flash"
 require "./lib/user"
 require "./lib/booking"
 require "./lib/bnb"
+require "./lib/calendar"
 require "./lib/search"
 
 class Makersbnb < Sinatra::Base
@@ -13,7 +14,7 @@ class Makersbnb < Sinatra::Base
   end
   enable :sessions
   enable :method_override
-
+  
   before do
     @user = User.find(id: session[:user_id]) if session[:user_id]
   end
@@ -101,6 +102,8 @@ class Makersbnb < Sinatra::Base
   get "/listings/bnb/:id" do
     @bnb = Bnb.find(id: params[:id])
     @bookings = Booking.find_by_bnb(bnb_id: params[:id]) if @user
+    @dates = Calendar.new
+    @bookings.each { |reservation| @dates.table(reservation.start_date, reservation.end_date) } if @user && @bookings.first
     erb :'listings/bnb'
   end
 

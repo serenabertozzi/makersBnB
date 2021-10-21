@@ -84,3 +84,15 @@
   <% end %>
   <% end %>
 </ul>
+
+ <% if @user %>
+
+  <% @dates.avalibility.each do |date| %>
+  <% if date.last == false %>
+  <span style="background-color: red;"> | <%= date.first %> </span>
+  <% else %>
+    | <span style="color: green;"> <%= date.first %> </span>
+  <% end %>
+  <%end%>
+
+  <% end %>
