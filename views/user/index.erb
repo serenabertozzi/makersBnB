@@ -1,4 +1,4 @@
-<%# Flash is breaking the feature test <% flash[:notice] %> 
+<% flash[:notice] %> 
 
 <div class="container"> 
   <div class="row">
@@ -6,27 +6,27 @@
     <form action="/user" method="post">
     <div class="mb-3">
         <label for="FirstName" class="form-label">First Name</label>
-        <input type="text" name="first_name" class="form-control" id="FirstName">
+        <input type="text" name="first_name" class="form-control" id="FirstName" required>
     </div>
     <div class="mb-3">
         <label for="Surname" class="form-label">Surname</label>
-        <input type="text" name="last_name" class="form-control" id="Surname">
+        <input type="text" name="last_name" class="form-control" id="Surname" required>
     </div>
   <div class="mb-3">
     <label for="InputEmail" class="form-label">Email address</label>
-    <input type="email" class="form-control" name="email" id="InputEmail">
+    <input type="email" class="form-control" name="email" id="InputEmail" required>
   </div>
   <div class="mb-3">
     <label for="InputPassword" class="form-label">Password</label>
-    <input type="password" name="password" class="form-control" id="InputPassword">
+    <input type="password" name="password" class="form-control" id="InputPassword" required>
   </div>
   <div class="mb-3">
     <label for="PasswordConfirmation" class="form-label">Password Confirmation</label>
-    <input type="password" name="password_confirmation" class="form-control" id="PasswordConfirmation">
+    <input type="password" name="password_confirmation" class="form-control" id="PasswordConfirmation" required>
   </div>
 
   <div class="mb-3 form-check">
-    <input type="radio" class="form-check-input" id="Check" value="true" name="host">
+    <input type="radio" class="form-check-input" id="Check" value="true" name="host" required>
     <label class="d-flex ps-1 justify-content-start form-check-label" for="Check">Host</label>
   </div>
   <div class="mb-3 form-check">
