@@ -6,6 +6,8 @@ def persisted_data(table:, id:)
   result.first
 end
 
+# methods below are for isolating each model, relying on PG instead
+
 def create_host
   connection = PG.connect(dbname: 'makersbnb_test')
   host_user_result = connection.exec(
@@ -24,10 +26,10 @@ def create_bnb(host_id:, name: 'Test BNB', location: 'London', price: '30')
   bnb_result[0]['id']
 end
 
-def create_booking(bnb_id:, host_id:, start_date:, end_date:)
+def create_booking(bnb_id:, user_id:, start_date:, end_date:)
   connection = PG.connect(dbname: 'makersbnb_test')
   booking_result = connection.exec(
     "INSERT INTO bookings(start_date, end_date, bnb_id, user_id)
-    VALUES('#{start_date}', '#{end_date}', #{bnb_id}, #{host_id}) RETURNING *;",
+    VALUES('#{start_date}', '#{end_date}', #{bnb_id}, #{user_id}) RETURNING *;",
   )
 end
