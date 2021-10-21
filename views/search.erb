@@ -1,40 +1,60 @@
-<h1> SEARCH PAGE </h1>
+<div class="container w-50 my-5">
+  <div class="row w-80">
+    <form action="/search" method="GET" class="input-group">
+      <div class="col-2 px-1 mx-auto">
+        <label for="Start" class="form-label">Start date:</label>
+        <input type="date" name="start_date" id="Start" class="form-control" value="<%= params[:start_date] %>">
+      </div>
 
-<div class="col-12 col-lg-6 mx-auto">
-  <form action="/search" method="GET" class="d-flex input-group">
-    <input name="location" class="form-control p-3 md-p-0" type="text" value="<%= params[:location] %>" placeholder="location" aria-label="Search" style="font-size: 30px">
-    <input name="min_price" class="form-control p-3 md-p-0" type="number" value="<%= params[:min_price] %>" placeholder="min price" aria-label="Search" style="font-size: 30px">
-    <input name="max_price" class="form-control p-3 md-p-0" type="number" value="<%= params[:max_price] %>" placeholder="max price" aria-label="Search" style="font-size: 30px">
-    <input name="start_date" class="form-control p-3 md-p-0" type="date" value="<%= params[:start_date] %>" aria-label="Search" style="font-size: 30px">
-    <input name="end_date" class="form-control p-3 md-p-0" type="date" value="<%= params[:end_date] %>" aria-label="Search" style="font-size: 30px">
-    <button class="btn btn-dark p-4 hero-button" type="submit"><i class="fas fa-search" style="font-size: 25px"></i></button>
-  </form>
-</div>
+      <div class="col-2 px-1 mx-auto">
+        <label for="End" class="form-label">End date:</label>
+        <input type="date" name="end_date" id="End" class="form-control" value="<%= params[:end_date] %>">
+      </div>
 
-<% if @bnbs %>
-<% @bnbs.each do |bnb| %>
-    <div class="card mb-3" style="max-width: 840px;">
-      <div class="row g-0">
-        <div class="col-md-4">
-          <img src="https://picsum.photos/200/300" class="img-fluid rounded-start" alt="...">
-        </div>
-        <div class="col-md-8">
-          <div class="card-body">
-            <h5 class="card-title"><%= bnb.name %></h5>
-            <p class="card-text"><small class="text-muted">Location: <%= bnb.location %></small></p>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              <form style="display: inline;" action="/user/dashboard<%= @user %>/bnb/<%= bnb.bnb_id %>" method="post">
-                  <input type='hidden' name='_method' value='DELETE'/>
-                  <input class="btn btn-dark mx-2" type="submit" value="Delete" />
-                </form>
-                <form style="display: inline;" action="/user/dashboard<%= @user %>/bnb/<%= bnb.bnb_id %>/edit" method="get">
-                  <input class="btn btn-dark mx-2" type="submit" value="Edit" />
-                </form>
-          </div>
+      <div class="col-2 px-1 mx-auto">
+        <label for="min_price" class="form-label">Min price:</label>
+        <input type="number" name="min_price" id="min_price" class="form-control" value="<%= params[:min_price] %>" placeholder="min price">
+      </div>
+
+      <div class="col-2 px-1 mx-auto">
+        <label for="max_price" class="form-label">Max price: </label>
+        <input type="number" name="max_price" id="max_price" class="form-control" value="<%= params[:max_price] %>" placeholder="Max price">
+      </div>
+      <div class="col-3 mx-auto">
+       <label for="location" class="form-label">Location: </label>
+       <div class="d-flex flex-direction-row">
+        <input type="search" class="form-control" name="location" placeholder="Location" id="location" value="<%= params[:location] %>">
+        <button class="btn btn-dark" type="submit"><i class="fas fa-search" style="font-size: 15px"></i></button>
         </div>
       </div>
+    </form>
+  </div>
+</div>
+
+
+<div class="container">
+  <div class="row">
+    <% if @bnbs %>
+      <% @bnbs.each do |bnb| %>
+            <div class="col-3 my-2 mx-auto text-align-center">
+              <div class="card" style="width: 18rem;">
+                <img src="https://picsum.photos/300/200" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title"><%= bnb.name %></h5>
+                  <p class="card-text"><small class="text-muted">Location: <%= bnb.location %></small></p>
+                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Congue eu consequat ac felis donec. Varius quam quisque id diam vel quam elementum. Sagittis eu volutpat odio facilisis mauris sit amet. Habitant morbi tristique senectus et netus. Velit ut tortor pretium viverra. </p>
+                  <% # <a href="/listings/bnb/<%= bnb.id %>" class="btn btn-dark">Go somewhere</a>                 %>
+                </div>
+              </div>
+            </div>
+      <% end %>
+    <% else %>
+    <div class="col-12 mt-5">
+    <p class="display-4">Sorry, no spaces available.</p>
+    <p>Try adjusting your search by changing your dates or by removing filters. Or..</p>
+    <div class="col-12 mx-auto d-flex justify-content-center mt-3">
+          <a class="btn btn-dark m-2 hero-button" aria-current="page" href="/listings/all" style="font-size: 30px">Get inspired</a>
     </div>
-<% end %>
-<% else %>
-No results :(
-<% end %>
+    <% end %>
+    </div>
+</div>
