@@ -81,7 +81,7 @@ describe Bnb do
   describe '.available?' do
     it 'returns true if the bnb is available within a date range' do
       create_booking(
-        bnb_id: bnb.id, host_id: host_user_id, 
+        bnb_id: bnb.id, user_id: host_user_id, 
         start_date: Time.new(2021, 11), end_date: Time.new(2021, 12)
       )
       # bnb is booked from 2021/11/1 to 2021/12/1
