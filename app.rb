@@ -26,13 +26,9 @@ class Makersbnb < Sinatra::Base
   get "/search" do
     p params[:start_date]
     p params[:end_date]
-    @start_date1 = params[:start_date]
-    @end_date1 = params[:end_date]
-    start_date = Time.new(1900) unless params[:start_date]
-    end_date = Time.new(2100) unless params[:end_date]
     @bnbs = Search.filter(
       location: params[:location], min_price: params[:min_price],
-      max_price: params[:max_price], start_date: start_date, end_date: end_date,
+      max_price: params[:max_price], start_date: params[:start_date], end_date: params[:end_date],
     )
     erb :search
   end
@@ -130,7 +126,7 @@ class Makersbnb < Sinatra::Base
   post "/user/booking/:bnb_id/new" do
     booking = Booking.create(start_date: params[:start_date], end_date: params[:end_date], bnb_id: params[:bnb_id], user_id: session[:user_id])
     flash[:notice] = "Your booking ##{booking.id} has been confirmed!"
-    redirect('/')
+    redirect("listings/bnb/#{params[:bnb_id]}")
   end
 
   patch "/user/dashboard/:id/bnb/:bnb_id" do
