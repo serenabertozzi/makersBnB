@@ -1,0 +1,40 @@
+<h1> SEARCH PAGE </h1>
+
+<div class="col-12 col-lg-6 mx-auto">
+  <form action="/search" method="GET" class="d-flex input-group">
+    <input name="location" class="form-control p-3 md-p-0" type="text" value="<%= params[:location] %>" placeholder="location" aria-label="Search" style="font-size: 30px">
+    <input name="min_price" class="form-control p-3 md-p-0" type="number" value="<%= params[:min_price] %>" placeholder="min price" aria-label="Search" style="font-size: 30px">
+    <input name="max_price" class="form-control p-3 md-p-0" type="number" value="<%= params[:max_price] %>" placeholder="max price" aria-label="Search" style="font-size: 30px">
+    <input name="start_date" class="form-control p-3 md-p-0" type="date" value="<%= params[:start_date] %>" aria-label="Search" style="font-size: 30px">
+    <input name="end_date" class="form-control p-3 md-p-0" type="date" value="<%= params[:end_date] %>" aria-label="Search" style="font-size: 30px">
+    <button class="btn btn-dark p-4 hero-button" type="submit"><i class="fas fa-search" style="font-size: 25px"></i></button>
+  </form>
+</div>
+
+<% if @bnbs %>
+<% @bnbs.each do |bnb| %>
+    <div class="card mb-3" style="max-width: 840px;">
+      <div class="row g-0">
+        <div class="col-md-4">
+          <img src="https://picsum.photos/200/300" class="img-fluid rounded-start" alt="...">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title"><%= bnb.name %></h5>
+            <p class="card-text"><small class="text-muted">Location: <%= bnb.location %></small></p>
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <form style="display: inline;" action="/user/dashboard<%= @user %>/bnb/<%= bnb.bnb_id %>" method="post">
+                  <input type='hidden' name='_method' value='DELETE'/>
+                  <input class="btn btn-dark mx-2" type="submit" value="Delete" />
+                </form>
+                <form style="display: inline;" action="/user/dashboard<%= @user %>/bnb/<%= bnb.bnb_id %>/edit" method="get">
+                  <input class="btn btn-dark mx-2" type="submit" value="Edit" />
+                </form>
+          </div>
+        </div>
+      </div>
+    </div>
+<% end %>
+<% else %>
+No results :(
+<% end %>
