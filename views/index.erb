@@ -11,13 +11,11 @@
       </div>
       <div class="row w-100">
         <div class="col-12 col-lg-6 mx-auto">
-          <form action="/search" method="POST" class="d-flex input-group">
-            <input name="q" class="form-control p-3 md-p-0" type="search" placeholder="Search by location" aria-label="Search" style="font-size: 30px">
+          <form action="/search" method="GET" class="d-flex input-group">
+            <input name="location" class="form-control p-3 md-p-0" type="search" placeholder="location" aria-label="Search" style="font-size: 30px">
+            <input name="start_date" class="form-control p-3 md-p-0" type="date" aria-label="Search" style="font-size: 30px">
+            <input name="end_date" class="form-control p-3 md-p-0" type="date" aria-label="Search" style="font-size: 30px">
             <button class="btn btn-dark p-4 hero-button" type="submit"><i class="fas fa-search" style="font-size: 25px"></i></button>
           </form>
         </div>
-        <div class="col-12 mx-auto d-flex justify-content-center mt-3">
-          <a class="btn btn-dark m-2 hero-button" aria-current="page" href="/listings/all" style="font-size: 30px">Browse all homes</a>
-        </div>
-
   </div>

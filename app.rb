@@ -4,6 +4,7 @@ require "sinatra/flash"
 require "./lib/user"
 require "./lib/booking"
 require "./lib/bnb"
+require "./lib/search"
 
 class Makersbnb < Sinatra::Base
   configure :development do
@@ -19,6 +20,16 @@ class Makersbnb < Sinatra::Base
 
   get "/" do
     erb(:index)
+  end
+
+  get "/search" do
+    start_date = Time.new(1900) unless params[:start_date]
+    end_date = Time.new(2100) unless params[:end_date]
+    @bnbs = Search.filter(
+      location: params[:location], min_price: params[:min_price], 
+      max_price: params[:max_price], start_date: start_date, end_date: end_date
+    )
+    erb :search
   end
 
   get "/user" do
