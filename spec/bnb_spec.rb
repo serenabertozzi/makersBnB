@@ -7,7 +7,8 @@ describe Bnb do
   let (:bnb) { Bnb.create(
     name:'The Shard', 
     location: 'London', 
-    price: '300', 
+    price: '300',
+    description: 'wow!',
     user_id: host_user_id) 
   }
   before { bnb }
@@ -32,6 +33,7 @@ describe Bnb do
         name:'Lisbon House', 
         location: 'Lisbon', 
         price: '50',
+        description: 'wow!',
         id: bnb.id) 
         bnb_update = persisted_data(table: 'bnbs', id: bnb.id)
 
@@ -55,7 +57,8 @@ describe Bnb do
       Bnb.create(
         name:'Second House', 
         location: 'Second City', 
-        price: '99', 
+        price: '99',
+        description: 'wow!',
         user_id: host_user_id)
 
       all_listings = Bnb.all

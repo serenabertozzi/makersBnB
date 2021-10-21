@@ -36,6 +36,7 @@ task :setup do
         name varchar(50) NOT NULL,
         location varchar(50),
         price smallint NOT NULL,
+        description text,
         user_id INT NOT NULL,
         FOREIGN KEY (user_id)
         REFERENCES users (id)
