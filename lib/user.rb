@@ -16,10 +16,21 @@ class User
   end
 
   def self.create(email:, first_name:, last_name:, host:, password:, password_confirmation:)
-    return false unless password_confirmation?(password, password_confirmation) && !DatabaseConnection.query("SELECT * FROM users WHERE email = $1;", [email]).first
+    return false if DatabaseConnection.query("SELECT * FROM users WHERE email = $1;", [email])
+    # must check for duplicate before SQL:"INSERT INTO users"
+
     encrypted_password = BCrypt::Password.create(password)
-    result = DatabaseConnection.query("INSERT INTO users (email, first_name, last_name, host, password) VALUES($1, $2, $3, $4, $5) RETURNING id, email, first_name, last_name, host;", [email, first_name, last_name, host, encrypted_password])
-    User.new(id: result.first['id'], email: result.first['email'], first_name: result.first['first_name'], last_name: result.first['last_name'], host: result.first['host'])
+    result = DatabaseConnection.query(
+      "INSERT INTO users (email, first_name, last_name, host, password) 
+      VALUES($1, $2, $3, $4, $5) RETURNING id, email, first_name, last_name, host;", 
+      [email, first_name, last_name, host, encrypted_password])
+     return false unless password_confirmation?(password, password_confirmation) 
+    User.new(
+      id: result.first['id'], 
+      email: result.first['email'], 
+      first_name: result.first['first_name'], 
+      last_name: result.first['last_name'], 
+      host: result.first['host'])
   end
 
   def self.log_in(email:, password:)

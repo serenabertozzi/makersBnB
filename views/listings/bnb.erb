@@ -70,12 +70,12 @@
     <li class="flex-item reservation">
         start <%= reservation.start_date %> <br>
         <p>end <%= reservation.end_date %></p>
-          <form style="display: inline;" action="/user/dashboard/<%= @user_id %>/booking/<%= reservation.id %>" method="post">
+          <form style="display: inline;" action="/user/dashboard/<%= @user_id %>/bnb/<%= reservation.bnb_id %>/booking/<%= reservation.id %>" method="post">
               <input type='hidden' name='_method' value='DELETE'/>
-              <input class="btn btn-dark mx-2" type="submit" value="Delete" disabled/>
+              <input class="btn btn-dark mx-2" type="submit" value="Delete" />
             </form>
-            <form style="display: inline;" action="/user/dashboard/<%= @user_id %>/booking/<%= reservation.id %>/edit" method="get">
-              <input class="btn btn-dark mx-2" type="submit" value="Edit" disabled/>
+            <form style="display: inline;" action="/user/dashboard/<%= @user_id %>/bnb/<%= reservation.bnb_id %>/booking/<%= reservation.id %>/edit" method="get">
+              <input class="btn btn-dark mx-2" type="submit" value="Edit" />
             </form>
     </li>
   <% end %>
