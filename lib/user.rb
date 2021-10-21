@@ -16,7 +16,7 @@ class User
   end
 
   def self.create(email:, first_name:, last_name:, host:, password:, password_confirmation:)
-    return false if DatabaseConnection.query("SELECT * FROM users WHERE email = $1;", [email])
+     return false if DatabaseConnection.query("SELECT * FROM users WHERE email = $1;", [email]).first
     # must check for duplicate before SQL:"INSERT INTO users"
 
     encrypted_password = BCrypt::Password.create(password)
@@ -34,9 +34,10 @@ class User
   end
 
   def self.log_in(email:, password:)
-    result = DatabaseConnection.query("SELECT * FROM users WHERE email = $1;", [email])
-    return false unless BCrypt::Password.new(result.first['password']) == password
-    User.new(id: result.first['id'], email: result.first['email'], first_name: result.first['first_name'], last_name: result.first['last_name'], host: result.first['host'])
+
+   result = DatabaseConnection.query("SELECT * FROM users WHERE email = $1;", [email])
+   return false unless BCrypt::Password.new(result.first['password']) == password
+   User.new(id: result.first['id'], email: result.first['email'], first_name: result.first['first_name'], last_name: result.first['last_name'], host: result.first['host'])
   end
 
   def self.find(id:)
