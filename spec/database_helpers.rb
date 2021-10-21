@@ -8,11 +8,11 @@ end
 
 # methods below are for isolating each model, relying on PG instead
 
-def create_host
+def create_host(email: 'test@example.com')
   connection = PG.connect(dbname: 'makersbnb_test')
   host_user_result = connection.exec(
     "INSERT INTO users(first_name, last_name, email, password, host)
-    VALUES('Guest', 'User', 'test@example.com', '12345', 'true') RETURNING *;"
+    VALUES('Guest', 'User', '#{email}', '12345', 'true') RETURNING *;"
   )
   host_user_result[0]['id']
 end
