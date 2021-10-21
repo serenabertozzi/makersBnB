@@ -5,9 +5,6 @@ require_relative 'booking'
 class Search
   attr_reader :bnb_id, :name, :location, :price, :user_id
 
-  @@min = Time.new(1900)
-  @@max = Time.new(2100)
-
   def initialize(bnb_id:, name:, location:, price:, user_id:)
     @bnb_id = bnb_id
     @name = name
@@ -16,8 +13,11 @@ class Search
     @user_id = user_id
   end
 
-  def self.filter(location: nil, min_price: '0', max_price: '10000', start_date: @@min, end_date: @@max)
-    if location
+  def self.filter(location: "", min_price: '0', max_price: '10000', start_date: Time.new(1900), end_date: Time.new(2100))
+    location ||= ""
+    min_price = '0' if max_price == "" || min_price.nil?
+    max_price = '10000' if max_price == "" || max_price.nil?
+    unless location.empty?
       results = DatabaseConnection.query(
         "SELECT bnbs.id, bnbs.name, bnbs.location, bnbs.price, bnbs.user_id, bookings.start_date, bookings.end_date
         FROM bnbs

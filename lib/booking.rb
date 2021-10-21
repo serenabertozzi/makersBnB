@@ -65,6 +65,11 @@ class Booking
     end.sort_by { |booking| booking.start_date }.reverse
   end
 
+  def self.find_all_bookings()
+    # all bookings where the host is the owner
+    # return who booked it
+  end
+
   def self.update(id:, start_date:, end_date:)
     result = DatabaseConnection.query(
       "UPDATE bookings SET start_date = $1, end_date = $2
