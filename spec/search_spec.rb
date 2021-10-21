@@ -1,5 +1,6 @@
 require 'search'
 require 'database_helpers'
+require './lib/bnb'
 
 describe Search do
   let(:host_user_id) { create_host }
@@ -70,7 +71,6 @@ describe Search do
       expect(result3_bnbs).not_to include london_bnb1
       expect(result3_bnbs).not_to include london_bnb2
     end
-
 
     it 'can filter by date availability' do
       booking = create_booking(bnb_id: manchester_bnb1, user_id: host_user_id, start_date: Time.new(2021, 2), end_date: Time.new(2021, 3))

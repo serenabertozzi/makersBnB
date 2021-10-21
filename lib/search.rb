@@ -15,7 +15,7 @@ class Search
 
   def self.filter(location: "", min_price: '0', max_price: '10000', start_date: Time.new(1900), end_date: Time.new(2100))
     location ||= ""
-    min_price = '0' if max_price == "" || min_price.nil?
+    min_price = '0' if min_price == "" || min_price.nil?
     max_price = '10000' if max_price == "" || max_price.nil?
     start_date ||= Time.new(1900)
     end_date ||= Time.new(2100)
