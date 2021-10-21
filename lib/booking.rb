@@ -51,6 +51,23 @@ class Booking
     end.sort_by { |booking| booking.start_date }.reverse
   end
 
+  def self.find_by_host(host_id:)
+    # all bookings where the host is the owner
+    # return who booked it
+    # result = DatabaseConnection.query(
+    #   "SELECT * FROM bookings
+    #   WHERE user_id = $1;", [host_id]
+    # )
+    # return unless result.any?
+
+    # result.map do |booking| 
+    #   Booking.new(
+    #     id: booking['id'], start_date: booking['start_date'], end_date: booking['end_date'],
+    #     bnb_id: booking['bnb_id'], user_id: booking['user_id']
+    #   )
+    # end.sort_by { |booking| booking.start_date }.reverse
+  end
+
   def self.find_by_bnb(bnb_id:)
     result = DatabaseConnection.query(
       "SELECT * FROM bookings WHERE bnb_id = $1;", [bnb_id]
@@ -63,11 +80,6 @@ class Booking
         bnb_id: booking['bnb_id'], user_id: booking['user_id']
       )
     end.sort_by { |booking| booking.start_date }.reverse
-  end
-
-  def self.find_all_bookings()
-    # all bookings where the host is the owner
-    # return who booked it
   end
 
   def self.update(id:, start_date:, end_date:)
