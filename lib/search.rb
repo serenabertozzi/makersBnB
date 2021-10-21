@@ -3,44 +3,54 @@ require_relative 'bnb'
 require_relative 'booking'
 
 class Search
-  attr_reader :bnb_id, :name, :location, :price, :host_id
+  attr_reader :bnb_id, :name, :location, :price, :user_id
 
   @@min = Time.new(1900)
   @@max = Time.new(2100)
 
-  def initialize(bnb_id:, name:, location:, price:, host_id:)
+  def initialize(bnb_id:, name:, location:, price:, user_id:)
     @bnb_id = bnb_id
     @name = name
     @location = location
     @price = price
-    @host_id = host_id
+    @user_id = user_id
   end
-
 
   def self.filter(location: nil, min_price: '0', max_price: '10000', start_date: @@min, end_date: @@max)
     if location
       results = DatabaseConnection.query(
-        "SELECT * from bnbs
-        WHERE LOWER(location) = $1
+        "SELECT bnbs.id, bnbs.name, bnbs.location, bnbs.price, bnbs.user_id, bookings.start_date, bookings.end_date
+        FROM bnbs
+        LEFT JOIN bookings
+        ON bnbs.id = bookings.bnb_id
+        WHERE LOWER(bnbs.location) = $1
         AND price BETWEEN $2 AND $3
-        ;", [location.downcase, min_price, max_price] # making it case insensitive
+        AND (bookings.start_date IS NULL
+          OR bookings.start_date NOT BETWEEN $4 AND $5)
+        AND (bookings.end_date IS NULL
+          OR bookings.end_date NOT BETWEEN $4 AND $5)
+        ;", [location.downcase, min_price, max_price, start_date, end_date]
       )
     else
       results = DatabaseConnection.query(
-        "SELECT * from bnbs
+        "SELECT bnbs.id, bnbs.name, bnbs.location, bnbs.price, bnbs.user_id, bookings.start_date, bookings.end_date
+        FROM bnbs
+        LEFT JOIN bookings
+        ON bnbs.id = bookings.bnb_id
         WHERE price BETWEEN $1 AND $2
-        ;", [min_price, max_price]
+        AND (bookings.start_date IS NULL
+          OR bookings.start_date NOT BETWEEN $3 AND $4)
+        AND (bookings.end_date IS NULL
+          OR bookings.end_date NOT BETWEEN $3 AND $4)
+        ;", [min_price, max_price, start_date, end_date]
       )
     end
-    
     return unless results.any?
-
-    results.map do |result| 
+    results.map do |result|
       Search.new(
         bnb_id: result['id'], name: result['name'], location: result['location'],
-        price: result['price'], host_id: result['host_id']
+        price: result['price'], user_id: result['user_id']
       )
     end
   end
-
 end

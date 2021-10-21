@@ -6,6 +6,8 @@ def persisted_data(table:, id:)
   result.first
 end
 
+# methods below are for isolating each model, relying on PG instead
+
 def create_host
   connection = PG.connect(dbname: 'makersbnb_test')
   host_user_result = connection.exec(
