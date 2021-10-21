@@ -38,7 +38,7 @@ describe Booking do
     end
   end
 
-  describe 'finding users' do
+  describe 'more specific searches' do
     let(:booking2) {
       Booking.create(
         start_date: Time.new(2022, 1),
@@ -83,6 +83,40 @@ describe Booking do
         expect(result[0].id).to eq booking3.id
         expect(result[1].id).to eq booking2.id
         expect(result[2].id).to eq booking.id
+      end
+    end
+
+    describe '.find_by_host' do
+      it 'finds all bookings for a specified hosts properties' do
+        other_bnb_id = create_bnb(host_id: host_user_id)
+        other_booking = Booking.create(
+          start_date: Time.new(2022, 4),
+          end_date: Time.new(2022, 5),
+          bnb_id: other_bnb_id,
+          user_id: host_user_id
+        )
+
+        wrong_host_id = create_host(email: 'wrong@host.com')
+        wrong_bnb_id = create_bnb(host_id: wrong_host_id)
+        other_hosts_booking = Booking.create(
+          start_date: Time.new(2022, 4),
+          end_date: Time.new(2022, 5),
+          bnb_id: wrong_bnb_id,
+          user_id: wrong_host_id
+        )
+
+        result = Booking.find_by_host(host_id: host_user_id)
+        result_bnbs = result.map { |booking| booking.bnb_id }
+        result_bookings = result.map { |booking| booking.id }
+        expect(result.length).to eq 4
+        expect(result_bnbs).to include other_bnb_id
+        expect(result_bnbs).to include bnb_id
+        expect(result_bnbs).not_to include wrong_bnb_id
+        expect(result[0].id).to eq other_booking.id # latest start date should be first
+        expect(result[1].id).to eq booking3.id
+        expect(result[2].id).to eq booking2.id
+        expect(result[3].id).to eq booking.id
+        expect(result_bookings).not_to include other_hosts_booking
       end
     end
   end
