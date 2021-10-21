@@ -60,6 +60,7 @@
 
 
 <ul class="flex-container wrap">
+ <% if @user %>
  <% if @bookings %>
   <% @bookings.each do |reservation| %>
     <li class="flex-item reservation">
@@ -67,14 +68,15 @@
         <p>end <%= reservation.end_date %></p>
           <form style="display: inline;" action="/user/dashboard/<%= @user_id %>/booking/<%= reservation.id %>" method="post">
               <input type='hidden' name='_method' value='DELETE'/>
-              <input class="btn btn-dark mx-2" type="submit" value="Delete" />
+              <input class="btn btn-dark mx-2" type="submit" value="Delete" disabled/>
             </form>
             <form style="display: inline;" action="/user/dashboard/<%= @user_id %>/booking/<%= reservation.id %>/edit" method="get">
-              <input class="btn btn-dark mx-2" type="submit" value="Edit" />
+              <input class="btn btn-dark mx-2" type="submit" value="Edit" disabled/>
             </form>
     </li>
   <% end %>
   <% else %>
   No Bookings
+  <% end %>
   <% end %>
 </ul>
