@@ -1,58 +1,23 @@
-  <div class="hero-image">
+<div class="hero-image">
+  <div class="row">
+    <div class="col-auto mx-auto">
+        <h1 class="hero-title">MakersBNB</h1>
+    </div>
+  </div>
     <div class="row">
-      <div class="col-auto mx-auto">
-          <h1 class="hero-title">MakersBNB</h1>
+      <div class="col-auto mx-auto my-2 text-center">
+        <p class="display-5 ">Stay with us!</p>
       </div>
     </div>
-      <div class="row">
-        <div class="col-auto mx-auto my-2 text-center">
-          <p class="display-5 ">Stay with us!</p>
-        </div>
+    <div class="row w-100">
+      <div class="col-12 col-lg-6 mx-auto">
+        <form action="/search" method="GET" class="d-flex input-group">
+          <input name="location" class="form-control p-3 md-p-0" type="text" placeholder="location" aria-label="Search" style="font-size: 30px">
+          <input name="start_date" class="form-control p-3 md-p-0" type="date" aria-label="Search" style="font-size: 30px">
+          <input name="end_date" class="form-control p-3 md-p-0" type="date" aria-label="Search" style="font-size: 30px">
+          <button class="btn btn-dark p-4 hero-button" type="submit"><i class="fas fa-search" style="font-size: 25px"></i></button>
+        </form>
       </div>
-
-
-<div class="container w-50 mb-2"
-  <div class="row w-50"> 
-    <form action="/search" method="POST" class="input-group">
-      <div class="col-3 px-1 mx-auto">
-        <label for="Start" class="form-label">Start date:</label>
-        <input type="date" name="start_date" id="Start" class="form-control">
-      </div>
-  
-      <div class="col-3 px-1 mx-auto"> 
-        <label for="End" class="form-label">End date:</label>
-        <input type="date" name="end_date" id="End" class="form-control">
-      </div>    
-
-      <div class="col-3 px-1 mx-auto"> 
-        <label for="min_price" class="form-label">Min price:</label>
-        <input type="number" name="min_price" id="min_price" class="form-control">
-      </div> 
-
-      <div class="col-3 px-1 mx-auto"> 
-        <label for="max_price" class="form-label">Max price: </label>
-        <input type="number" name="max_price" id="max_price" class="form-control">
-      </div> 
+    </div>
   </div>
-
-
-      <div class="row w-100">
-        <div class="col-12 col-lg-6 mx-auto">
-          <form action="/search" method="GET" class="d-flex input-group">
-            <input name="location" class="form-control p-3 md-p-0" type="search" placeholder="location" aria-label="Search" style="font-size: 30px">
-            <input name="start_date" class="form-control p-3 md-p-0" type="date" aria-label="Search" style="font-size: 30px">
-            <input name="end_date" class="form-control p-3 md-p-0" type="date" aria-label="Search" style="font-size: 30px">
-            <button class="btn btn-dark p-4 hero-button" type="submit"><i class="fas fa-search" style="font-size: 25px"></i></button>
-          </form>
-        </div>
-        <div class="col-12 col-lg-6 mx-auto d-flex flex-direction-row">
-     
-            <input name="q" class="form-control p-3 md-p-0" type="search" placeholder="Search by location" aria-label="Search" style="font-size: 30px">
-            <button class="btn btn-dark p-4 hero-button" type="submit"><i class="fas fa-search" style="font-size: 25px"></i></button>
-         </div>
-            </form>
-   
-        <div class="col-12 mx-auto d-flex justify-content-center mt-3">
-          <a class="btn btn-dark m-2 hero-button" aria-current="page" href="/listings/all" style="font-size: 30px">Browse all homes</a>
-        </div>
 </div>
