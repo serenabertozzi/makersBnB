@@ -101,6 +101,7 @@ class Makersbnb < Sinatra::Base
 
   get "/listings/bnb/:id" do
     @bnb = Bnb.find(id: params[:id])
+    @user_id = session[:user_id]
     @bookings = Booking.find_by_bnb(bnb_id: params[:id]) if @user
     @dates = Calendar.new
     @bookings.each { |reservation| @dates.table(reservation.start_date, reservation.end_date) } if @user && @bookings.first
@@ -137,6 +138,22 @@ class Makersbnb < Sinatra::Base
   patch "/user/dashboard/:id/booking/:booking_id" do
     Booking.update(id: params[:booking_id], start_date: params[:start_date], end_date: params[:end_date])
     redirect "user/dashboard"
+  end
+
+  get "/user/dashboard/:id/bnb/:bnb_id/booking/:booking_id/edit" do
+    @user_id = session[:user_id]
+    @booking = Booking.find(id: params[:booking_id])
+    erb :"user/edit_booking_by_host"
+  end
+
+  patch "/user/dashboard/:id/bnb/:bnb_id/booking/:booking_id" do
+    Booking.update(id: params[:booking_id], start_date: params[:start_date], end_date: params[:end_date])
+    redirect "listings/bnb/#{params[:bnb_id]}"
+  end
+
+  delete "/user/dashboard/:id/bnb/:bnb_id/booking/:booking_id" do
+    Booking.delete(id: params[:booking_id])
+    redirect "listings/bnb/#{params[:bnb_id]}"
   end
 
   run! if app_file == $0
