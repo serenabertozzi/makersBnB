@@ -17,6 +17,8 @@ class Search
     location ||= ""
     min_price = '0' if max_price == "" || min_price.nil?
     max_price = '10000' if max_price == "" || max_price.nil?
+    start_date ||= Time.new(1900)
+    end_date ||= Time.new(2100)
     unless location.empty?
       results = DatabaseConnection.query(
         "SELECT bnbs.id, bnbs.name, bnbs.location, bnbs.price, bnbs.user_id, bookings.start_date, bookings.end_date
