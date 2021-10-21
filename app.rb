@@ -104,7 +104,7 @@ class Makersbnb < Sinatra::Base
     @user_id = session[:user_id]
     @bookings = Booking.find_by_bnb(bnb_id: params[:id]) if @user
     @dates = Calendar.new
-    @bookings.each { |reservation| @dates.table(reservation.start_date, reservation.end_date) } if @user && @bookings.first
+    @bookings.each { |reservation| @dates.table(reservation.start_date, reservation.end_date) } if @user && @bookings
     erb :'listings/bnb'
   end
 
