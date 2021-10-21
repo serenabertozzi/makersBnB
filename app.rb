@@ -24,11 +24,11 @@ class Makersbnb < Sinatra::Base
   end
 
   get "/search" do
-    start_date = Time.new(1900) unless params[:start_date]
-    end_date = Time.new(2100) unless params[:end_date]
+    p params[:start_date]
+    p params[:end_date]
     @bnbs = Search.filter(
       location: params[:location], min_price: params[:min_price],
-      max_price: params[:max_price], start_date: start_date, end_date: end_date,
+      max_price: params[:max_price], start_date: params[:start_date], end_date: params[:end_date],
     )
     erb :search
   end
@@ -40,7 +40,7 @@ class Makersbnb < Sinatra::Base
   post "/user" do
     user = User.create(first_name: params[:first_name], last_name: params[:last_name], host: params[:host], email: params[:email], password: params[:password], password_confirmation: params[:password_confirmation])
     unless user
-      flash[:notice] = "Password did not match or email already exists"
+      flash[:notice_sign_up] = "Email already exists, or passwords did not match"
       redirect "/user"
     else
       session[:user_id] = user.id
@@ -60,7 +60,7 @@ class Makersbnb < Sinatra::Base
   post "/user/login" do
     user = User.log_in(email: params[:email], password: params[:password])
     unless user
-      flash[:notice] = "Password did not match, please try again"
+      flash[:notice_login] = "Password did not match, please try again"
       redirect(:'user/login')
     else
       session[:user_id] = user.id
@@ -100,6 +100,10 @@ class Makersbnb < Sinatra::Base
   end
 
   get "/listings/bnb/:id" do
+    p params[:start_date]
+    p params[:end_date]
+    @start_date = params[:start_date]
+    @end_date = params[:end_date]
     @bnb = Bnb.find(id: params[:id])
     @user_id = session[:user_id]
     @bookings = Booking.find_by_bnb(bnb_id: params[:id]) if @user
@@ -117,6 +121,12 @@ class Makersbnb < Sinatra::Base
     @user_id = session[:user_id]
     @bnb = Bnb.find(id: params[:bnb_id])
     erb :"bnb/edit"
+  end
+
+  post "/user/booking/:bnb_id/new" do
+    booking = Booking.create(start_date: params[:start_date], end_date: params[:end_date], bnb_id: params[:bnb_id], user_id: session[:user_id])
+    flash[:notice] = "Your booking ##{booking.id} has been confirmed!"
+    redirect("listings/bnb/#{params[:bnb_id]}")
   end
 
   patch "/user/dashboard/:id/bnb/:bnb_id" do

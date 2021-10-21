@@ -13,12 +13,17 @@ class Search
     @user_id = user_id
   end
 
-  def self.filter(location: "", min_price: '0', max_price: '10000', start_date: Time.new(1900), end_date: Time.new(2100))
+  def self.filter(location: "", min_price: '0', max_price: '10000', start_date: Time.now, end_date: Time.now)
     location ||= ""
     min_price = '0' if min_price == "" || min_price.nil?
     max_price = '10000' if max_price == "" || max_price.nil?
-    start_date ||= Time.new(1900)
-    end_date ||= Time.new(2100)
+    start_date = Time.now if start_date == "" || max_price.nil?
+    end_date = Time.now if end_date == "" || max_price.nil?
+    p "INSIDE FILTER"
+    p min_price
+    p max_price
+    p start_date
+    p end_date
     unless location.empty?
       results = DatabaseConnection.query(
         "SELECT bnbs.id, bnbs.name, bnbs.location, bnbs.price, bnbs.user_id, bookings.start_date, bookings.end_date
