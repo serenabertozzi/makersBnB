@@ -34,10 +34,13 @@ class User
   end
 
   def self.log_in(email:, password:)
+  
 
    result = DatabaseConnection.query("SELECT * FROM users WHERE email = $1;", [email])
-   return false unless BCrypt::Password.new(result.first['password']) == password
+    return false unless BCrypt::Password.new(result.first['password']) == password #works
    User.new(id: result.first['id'], email: result.first['email'], first_name: result.first['first_name'], last_name: result.first['last_name'], host: result.first['host'])
+  #  return false unless DatabaseConnection.query("SELECT * FROM users WHERE password = $1;", [password]).first
+  #  return false if BCrypt::Password.new(result.first['password']) == password
   end
 
   def self.find(id:)

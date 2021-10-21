@@ -44,7 +44,7 @@ class Makersbnb < Sinatra::Base
   post "/user" do
     user = User.create(first_name: params[:first_name], last_name: params[:last_name], host: params[:host], email: params[:email], password: params[:password], password_confirmation: params[:password_confirmation])
     unless user
-      flash[:notice] = "Password did not match or email already exists"
+      flash[:notice_sign_up] = "Email already exists, or passwords did not match"
       redirect "/user"
     else
       session[:user_id] = user.id
@@ -64,7 +64,7 @@ class Makersbnb < Sinatra::Base
   post "/user/login" do
     user = User.log_in(email: params[:email], password: params[:password])
     unless user
-      flash[:notice] = "Password did not match, please try again"
+      flash[:notice_login] = "Password did not match, please try again"
       redirect(:'user/login')
     else
       session[:user_id] = user.id
