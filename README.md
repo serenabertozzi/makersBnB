@@ -1,60 +1,60 @@
-Accounts
-Sign up
-Log in
-Log out
-Update details
-
-2 Types of account (guest, host)
-Host - CREATE bnbs, READ their bnb page, UPDATE bnb info, DELETE bnbs
-Guest - CREATE booking, READ bnb pages, UPDATE booking, DELETE bookings
-
-Features
-Notifications (emails) to confirm things
-
-Homepage
-Has a search bar
-Has a sign up/login button - Host/Guest
-Branding
-Sign in directs you to the right dashboard - Host/Guest
-Dashboard with all the actions you can do
-
-Search bar
-Queries the database
-Search by: Location, Date (availability), Price
-
-Make a booking - booking class/object
-Check in
-Check out - Leave review(guest exclusive)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+## MakersBnb
+=============
 
 ```
-As a user,
-So I can find a place to stay,
-I want to see a list of bnbs
+  ()___
+()//__/)_________________()
+||(___)//#/_/#/_/#/_/#()/||
+||----|#| |#|_|#|_|#|_|| ||  
+||____|_|#|_|#|_|#|_|#||/||
+||    |#|_|#|_|#|_|#|_||
+```
+------------------------------------------------
+User stories:
+
+```
+As a host
+So that I can rent out my property,
+I want to be able to signup as a host.
+
+As a host
+So that I can rent out my property,
+I want to be able to create a bnb.
+
+As a host
+So that I can modify my bnbs,
+I want to be able to delete or edit my bnbs.
+
+As a host,
+So that I know when my property is being booked,
+I want to be able to see a list of bookings for my bnb.
+
+As a guest
+So that I can book a property,
+I want to be able to sign up as a guest.
+
+As a guest,
+So that I can book a property,
+I want to see all the bnbs.
+
+As a guest,
+So that I can book a property on a certain date or location,
+I want to be able to filter my search of bnbs.
+
+As a guest,
+So that I can book a property,
+I want to be able to create a booking.
+
+As a guest,
+So that I remember my bookings,
+I want to be able to see a list of my bookings.
+
+As a guest,
+So that I can modify my bookings,
+I want to be able to delete or edit my bookings.
 
 As a user,
-So I can know which bnbs are available,
-I want to see when I can book a bnb
+So that no one else can use my account,
+I want to be able to log in and log out.
 
 ```
