@@ -100,10 +100,6 @@ class Makersbnb < Sinatra::Base
   end
 
   get "/listings/bnb/:id" do
-    p params[:start_date]
-    p params[:end_date]
-    @start_date = params[:start_date]
-    @end_date = params[:end_date]
     @bnb = Bnb.find(id: params[:id])
     @user_id = session[:user_id]
     @bookings = Booking.find_by_bnb(bnb_id: params[:id]) if @user
@@ -124,8 +120,12 @@ class Makersbnb < Sinatra::Base
   end
 
   post "/user/booking/:bnb_id/new" do
-    booking = Booking.create(start_date: params[:start_date], end_date: params[:end_date], bnb_id: params[:bnb_id], user_id: session[:user_id])
-    flash[:notice] = "Your booking ##{booking.id} has been confirmed!"
+    if session[:user_id]
+      booking = Booking.create(start_date: params[:start_date], end_date: params[:end_date], bnb_id: params[:bnb_id], user_id: session[:user_id])
+      flash[:notice] = "Your booking ##{booking.id} has been confirmed!"
+    else
+      flash[:notice] = "Please sign in to book"
+    end
     redirect("listings/bnb/#{params[:bnb_id]}")
   end
 

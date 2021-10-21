@@ -3,12 +3,12 @@
     <form action="/search" method="GET" class="input-group">
       <div class="col-2 px-1 mx-auto">
         <label for="Start" class="form-label">Start date:</label>
-        <input type="date" name="start_date" id="Start" class="form-control" value="<%= params[:start_date] %>">
+        <input type="date" name="start_date" id="Start" class="form-control" value="<%= params[:start_date] %>" required>
       </div>
 
       <div class="col-2 px-1 mx-auto">
         <label for="End" class="form-label">End date:</label>
-        <input type="date" name="end_date" id="End" class="form-control" value="<%= params[:end_date] %>">
+        <input type="date" name="end_date" id="End" class="form-control" value="<%= params[:end_date] %>" required>
       </div>
 
       <div class="col-2 px-1 mx-auto">

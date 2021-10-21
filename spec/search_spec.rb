@@ -84,22 +84,6 @@ describe Search do
       expect(result_bnbs).not_to include london_bnb2
       expect(result_bnbs).to include manchester_bnb2
       expect(result_bnbs).to include london_bnb3
-
-      result2 = Search.filter(start_date: Time.new(2021, 4))
-      result2_bnbs = result2.map { |result| result.bnb_id }
-      expect(result2_bnbs).not_to include london_bnb1
-      expect(result2_bnbs).to include london_bnb2
-      expect(result2_bnbs).to include london_bnb3
-      expect(result2_bnbs).to include manchester_bnb1
-      expect(result2_bnbs).to include manchester_bnb2
-
-      result3 = Search.filter(end_date: Time.new(2021, 1))
-      result3_bnbs = result3.map { |result| result.bnb_id }
-      expect(result3_bnbs).not_to include london_bnb2
-      expect(result3_bnbs).to include london_bnb1
-      expect(result3_bnbs).to include london_bnb3
-      expect(result3_bnbs).to include manchester_bnb1
-      expect(result3_bnbs).to include manchester_bnb2
     end
 
     it 'returns all bnbs if left empty' do

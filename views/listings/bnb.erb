@@ -53,9 +53,9 @@
       <h4>Location: <%= @bnb.location %></h4>
         <form action="/user/booking/<%= @bnb.id %>/new" method="post" class="py-2">
           <label for="Start" class="form-label">Start date:</label>
-            <input type="date" name="start_date" value="<%= @start_date %>" id="Start" class="form-control">
+            <input type="date" name="start_date" value="<%= params[:start_date] %>" id="Start" class="form-control">
           <label for="End" class="form-label">End date:</label>
-           <input type="date" name="end_date" value="<%= @end_date %>" id="End" class="form-control">
+           <input type="date" name="end_date" value="<%= params[:end_date] %>" id="End" class="form-control">
           <input type="submit" value="Book BnB" class="btn btn-dark mx-2 mt-3">
         </form>
     </div>
