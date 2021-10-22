@@ -78,16 +78,17 @@ class Makersbnb < Sinatra::Base
   end
 
   get "/user/dashboard" do
+    def find_bnb(id)
+      Bnb.find(id: id)
+    end
     @user_id = session[:user_id]
     @user = User.find(id: @user_id) if @user_id
     if @user.host != "f"
-      @bnb = Bnb.where(user_id: session[:user_id])
+      @bnbs = Bnb.where(user_id: @user_id)
+      @bookings = Booking.find_by_host(host_id: @user_id)
+      @bookings_by_host = Booking.find_by_user(user_id: @user_id)
       erb(:'user/dashboard')
     else
-      def find_bnb(id)
-        Bnb.find(id: id)
-      end
-
       @booking = Booking.find_by_user(user_id: @user_id)
       erb(:'user/guest_dashboard')
     end

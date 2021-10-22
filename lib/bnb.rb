@@ -57,7 +57,7 @@ class Bnb
 
   def self.where(user_id:)
     result = DatabaseConnection.query("SELECT * FROM bnbs WHERE user_id = $1;", [user_id])
-    return false if result.first == nil
+    return unless result.any?
     result.map { |bnb|
       Bnb.new(
         id: bnb["id"],
