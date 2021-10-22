@@ -1,7 +1,59 @@
+<html lang="en"> <%# https://jqueryui.com/datepicker/ %>
+<head>  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>jQuery UI Datepicker - Default functionality</title>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+  <script>
+    $(
+      
+      
+      function() {
+    var dateFormat = "mm/dd/yy",
+      from = $( "#from" )
+        .datepicker({
+          changeMonth: true,
+          changeYear: true,
+          numberOfMonths: 1,
+          minDate: 0,
+
+        })
+        .on( "change", function() {
+          to.datepicker( "option", "minDate", getDate( this ) );
+        }),
+
+      to = $( "#to" ).datepicker({
+        changeMonth: true,
+        changeYear: true,
+        numberOfMonths: 1,
+        minDate: 0
+      })
+      .on( "change", function() {
+        from.datepicker( "option", "maxDate", getDate( this ) );
+      });
+
+ 
+    function getDate( element ) {
+      var date;
+      try {
+        date = $.datepicker.parseDate( dateFormat, element.value );
+      } catch( error ) {
+        date = null;
+      }
+ 
+      return date;
+    }
+  } );
+  </script>
+</head>
+
 <div class="hero-image">
   <div class="row">
     <div class="col-auto mx-auto">
-        <h1 class="hero-title">MakersBNB</h1>
+        <h1 class="hero-title">MakersBnB</h1>
     </div>
   </div>
     <div class="row">
@@ -13,8 +65,13 @@
       <div class="col-12 col-lg-6 mx-auto">
         <form action="/search" method="GET" class="d-flex input-group">
           <input name="location" class="form-control p-3 md-p-0" type="text" placeholder="location" aria-label="Search" style="font-size: 30px">
-          <input name="start_date" class="form-control p-3 md-p-0" type="date" aria-label="Search" style="font-size: 30px" required>
-          <input name="end_date" class="form-control p-3 md-p-0" type="date" aria-label="Search" style="font-size: 30px" required>
+          
+          <input type="text" id="from" name="start_date" class="form-control p-3 md-p-0" type="date" 
+          aria-label="Search" style="font-size: 30px" placeholder="Start Date">
+  
+          <input type="text" id="to" name="end_date" class="form-control p-3 md-p-0" 
+          aria-label="Search" style="font-size: 30px" placeholder="End Date">
+          
           <button class="btn btn-dark p-4 hero-button" type="submit"><i class="fas fa-search" style="font-size: 25px"></i></button>
         </form>
          <div class="col-12 mx-auto d-flex justify-content-center mt-3">
