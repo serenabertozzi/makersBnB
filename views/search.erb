@@ -1,65 +1,16 @@
-<html lang="en"> <% # https://jqueryui.com/datepicker/ %>
-<head>  
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>jQuery UI Datepicker - Default functionality</title>
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
-  <link rel="stylesheet" href="/resources/demos/style.css">
-  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-  <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
-  <script>
-    $( function() {
-    var dateFormat = "mm/dd/yy",
-      from = $( "#from" )
-        .datepicker({
-          changeMonth: true,
-          changeYear: true,
-          numberOfMonths: 2,
-          minDate: 0
-        })
-        .on( "change", function() {
-          to.datepicker( "option", "minDate", getDate( this ) );
-        }),
-
-      to = $( "#to" ).datepicker({
-        changeMonth: true,
-        changeYear: true,
-        numberOfMonths: 2,
-        minDate: 0
-      })
-      .on( "change", function() {
-        from.datepicker( "option", "maxDate", getDate( this ) );
-      });
- 
-    function getDate( element ) {
-      var date;
-      try {
-        date = $.datepicker.parseDate( dateFormat, element.value );
-      } catch( error ) {
-        date = null;
-      }
- 
-      return date;
-    }
-  } );
-  </script>
-</head>
-
 <div class="container w-50 my-5">
   <div class="row w-80">
     <form id='form' action="/search" method="GET" class="input-group">
-    
-        <div class="col-2 px-1 mx-auto">
-        <label for="Start" class="form-label">Start date:</label>
-        <input type="text" id="from" name="start_date" class="form-control"
-         value="<%= params[:start_date] %>">
-        </div>
 
-        <div class="col-2 px-1 mx-auto">
-        <label for="Start" class="form-label">End date:</label>
-        <input type="text" id="to" name="end_date" class="form-control"
-         value="<%= params[:end_date] %>">
-        </div>
+      <div class="col-2 px-1 mx-auto">
+        <label for="Start" class="form-label">Start date:</label>
+        <input type="date" name="start_date" id="Start" class="form-control" value="<%= params[:start_date] %>" required>
+      </div>
+
+      <div class="col-2 px-1 mx-auto">
+        <label for="End" class="form-label">End date:</label>
+        <input type="date" name="end_date" id="End" class="form-control" value="<%= params[:end_date] %>" required>
+      </div>
 
       <div class="col-2 px-1 mx-auto">
         <label for="min_price" class="form-label">Min price:</label>
@@ -80,6 +31,7 @@
         <button class="btn btn-dark" type="submit"><i class="fas fa-search" style="font-size: 15px"></i></button>
         </div>
       </div>
+
     </form>
   </div>
 </div>
@@ -102,15 +54,16 @@
                 </div>
               </div>
             </div>
+          </div>
+        </div>
       <% end %>
     <% else %>
     <div class="col-12 mt-5">
     <p class="display-4">Sorry, no spaces available.</p>
     <p>Try adjusting your search by changing your dates or by removing filters. Or..</p>
     <div class="col-12 mx-auto d-flex justify-content-center mt-3">
-          <a class="btn btn-dark m-2 hero-button" aria-current="page" href="/listings/all" style="font-size: 30px">Get inspired</a>
+      <a class="btn btn-dark m-2 hero-button" aria-current="page" href="/listings/all" style="font-size: 30px">Get inspired</a>
     </div>
     <% end %>
-    </div>
   </div>
-</html>
+</div>
