@@ -46,31 +46,6 @@
     <div class="col-9">
       <h2>Description:</h2>
       <p><%= @bnb.description %></p>
-      <h3> Bookings: </h3>
-
-          <% if @user %>
-          <% if @bookings %>
-            <% @bookings.each do |reservation| %>
-                <div class="card" style="width: 18rem;">
-                  <div class="card-body">
-                    <h6 class="card-subtitle mb-2 text-muted">Check-in: <%= reservation.start_date %> </h6>
-                    <h6 class="card-subtitle mb-2 text-muted">Check-out: <%= reservation.end_date %> </h6>
-                  </div>
-                  <div class="d-flex flex-direction-row p-2">
-                    <form action="/user/dashboard/<%= @user_id %>/bnb/<%= reservation.bnb_id %>/booking/<%= reservation.id %>" method="post">
-                        <input type='hidden' name='_method' value='DELETE'/>
-                        <input class="btn btn-dark mx-2" type="submit" value="Delete" />
-                      </form>
-                      <form action="/user/dashboard/<%= @user_id %>/bnb/<%= reservation.bnb_id %>/booking/<%= reservation.id %>/edit" method="get">
-                        <input class="btn btn-dark mx-2" type="submit" value="Edit" />
-                    </form>
-                    </div>
-                </div>
-            <% end %>
-            <% else %>
-            No Bookings
-            <% end %>
-            <% end %>
     </div>
     <div class="col-3">
       <h4>Price: $<%= @bnb.price %> per night</h4>

@@ -113,7 +113,7 @@ class Makersbnb < Sinatra::Base
   get "/listings/bnb/:id" do
     @bnb = Bnb.find(id: params[:id])
     @user_id = session[:user_id]
-    @bookings = Booking.find_by_bnb(bnb_id: params[:id]) if @user
+    @bookings = Booking.find_by_bnb(bnb_id: params[:id])
     @calendar = Calendar.new(@bookings) if @bookings
     erb :'listings/bnb'
   end
