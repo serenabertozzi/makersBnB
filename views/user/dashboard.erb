@@ -22,6 +22,7 @@
               <div class="card-body">
                 <h5 class="card-title"><%= bnb.name %></h5>
                 <p class="card-text"><small class="text-muted">Location: <%= bnb.location %></small></p>
+                <p class="card-text"><small class="text-muted">Price: £<%= bnb.price %></small></p>
                 <p class="card-text"><%= bnb.description %></p>
                   <form style="display: inline;" action="/user/dashboard/<%= @user_id %>/bnb/<%= bnb.id %>" method="post">
                       <input type='hidden' name='_method' value='DELETE'/>
@@ -42,7 +43,6 @@
     <% @bookings.each do |reservation| %>
       <div class="card" style="width: 18rem;">
         <div class="card-body">
-          <h5 class="card-title">Card title</h5>
           <h6 class="card-subtitle mb-2 text-muted">Check-in: <%= reservation.start_date %> </h6>
           <h6 class="card-subtitle mb-2 text-muted">Check-out: <%= reservation.end_date %> </h6>
           <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
