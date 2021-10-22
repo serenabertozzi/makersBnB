@@ -35,7 +35,6 @@ class Makersbnb < Sinatra::Base
   end
 
   get "/search" do
-    p @bnbs
     @bnbs = Search.filter(
       location: params[:location], min_price: params[:min_price],
       max_price: params[:max_price], start_date: params[:start_date], end_date: params[:end_date],
