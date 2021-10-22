@@ -48,7 +48,7 @@
       <p><%= @bnb.description %></p>
     </div>
     <div class="col-3">
-      <h4>Price: $<%= @bnb.price %> per night</h4>
+      <h4>Price: £<%= @bnb.price %> per night</h4>
       <h4>Location: <%= @bnb.location %></h4>
         <form action="/user/booking/<%= @bnb.id %>/new" method="post" class="py-2">
           <label for="Start" class="form-label">Start date:</label>
