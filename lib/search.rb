@@ -21,10 +21,10 @@ class Search
     max_price = "10000" if max_price == "" || max_price.nil?
     start_date = Time.new(1900) if start_date == "" || start_date.nil?
     end_date = Time.new(1900) if end_date == "" || end_date.nil?
- 
+
     unless location.empty?
       results = DatabaseConnection.query(
-        "SELECT bnbs.id, bnbs.name, bnbs.location, bnbs.price, bnbs.user_id, bnbs.description, bookings.start_date, bookings.end_date
+        "SELECT id, name, location, price, description, user_id
         FROM bnbs
         WHERE LOWER(bnbs.location) = $1
         AND price BETWEEN $2 AND $3
@@ -32,17 +32,18 @@ class Search
       )
     else
       results = DatabaseConnection.query(
-        "SELECT bnbs.id, bnbs.name, bnbs.location, bnbs.price, bnbs.user_id, bnbs.description, bookings.start_date, bookings.end_date
+        "SELECT id, name, location, price, description, user_id
         FROM bnbs
         WHERE price BETWEEN $1 AND $2
         ;", [min_price, max_price]
       )
     end
+
     return unless results.any?
     bnbs = results.map do |result|
       Search.new(
         bnb_id: result["id"], name: result["name"], location: result["location"],
-        price: result["price"], user_id: result["user_id"], description: result["description"],
+        price: result["price"], description: result["description"], user_id: result["user_id"]
       )
     end
 
