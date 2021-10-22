@@ -19,6 +19,16 @@ class Makersbnb < Sinatra::Base
     @user = User.find(id: session[:user_id]) if session[:user_id]
   end
 
+  helpers do
+    def truncate(text, max_chars = 100)
+      if text.length > max_chars
+        text[0..(max_chars - 3)] + "..."
+      else
+        text
+      end
+    end
+  end
+
   get "/" do
     erb(:index)
   end
@@ -76,7 +86,7 @@ class Makersbnb < Sinatra::Base
       erb(:'user/dashboard')
     else
       def find_bnb(id)
-        Bnb.find(id: id).name
+        Bnb.find(id: id)
       end
 
       @booking = Booking.find_by_user(user_id: @user_id)
@@ -90,7 +100,7 @@ class Makersbnb < Sinatra::Base
   end
 
   post "/user/dashboard/:id/bnb" do
-    Bnb.create(name: params[:name], location: params[:location], price: params[:price], user_id: params[:id])
+    Bnb.create(name: params[:name], location: params[:location], description: params[:description], price: params[:price], user_id: params[:id])
     redirect "user/dashboard"
   end
 
@@ -130,7 +140,7 @@ class Makersbnb < Sinatra::Base
   end
 
   patch "/user/dashboard/:id/bnb/:bnb_id" do
-    Bnb.update(id: params[:bnb_id], name: params[:name], location: params[:location], price: params[:price])
+    Bnb.update(id: params[:bnb_id], name: params[:name], location: params[:location], description: params[:description], price: params[:price])
     redirect "user/dashboard"
   end
 

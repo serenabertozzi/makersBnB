@@ -1,4 +1,4 @@
-<html lang="en"> <%# https://jqueryui.com/datepicker/ %>
+<html lang="en"> <% # https://jqueryui.com/datepicker/ %>
 <head>  
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -93,12 +93,12 @@
               <div class="card" style="width: 18rem;">
                 <img src="https://picsum.photos/300/200" class="card-img-top" alt="...">
                 <div class="card-body">
-                  <h5 class="card-title"><%= bnb.name %></h5>
+                  <h5 class="card-title text-truncate"><%= bnb.name %></h5>
                   <p class="card-text"><small class="text-muted">Location: <%= bnb.location %></small></p>
                   <p class="card-text"><small class="text-muted">Price: $<%= bnb.price %></small></p>
-                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Congue eu consequat ac felis donec. Varius quam quisque id diam vel quam elementum. Sagittis eu volutpat odio facilisis mauris sit amet. Habitant morbi tristique senectus et netus. Velit ut tortor pretium viverra. </p>
+                  <p class="card-text" style="height: 100px;"><%= truncate(bnb.description) %></p>
 
-                 <a href="/listings/bnb/<%= bnb.bnb_id %><%="?start_date=#{params[:start_date]}&end_date=#{params[:end_date]}" %>" class="btn btn-dark">Stay here!</a>
+                 <a href="/listings/bnb/<%= bnb.bnb_id %><%= "?start_date=#{params[:start_date]}&end_date=#{params[:end_date]}" %>" class="btn btn-dark">Stay here!</a>
                 </div>
               </div>
             </div>

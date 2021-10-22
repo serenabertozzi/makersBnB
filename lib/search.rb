@@ -1,23 +1,24 @@
-require_relative 'database_connection'
-require_relative 'bnb'
-require_relative 'booking'
+require_relative "database_connection"
+require_relative "bnb"
+require_relative "booking"
 
 class Search
-  attr_reader :bnb_id, :name, :location, :price, :user_id
+  attr_reader :bnb_id, :name, :location, :price, :user_id, :description
 
-  def initialize(bnb_id:, name:, location:, price:, user_id:)
+  def initialize(bnb_id:, name:, location:, price:, user_id:, description:)
     @bnb_id = bnb_id
     @name = name
     @location = location
     @price = price
     @user_id = user_id
+    @description = description
   end
 
-  def self.filter(location: "", min_price: '0', max_price: '10000', start_date: nil, end_date: nil)
+  def self.filter(location: "", min_price: "0", max_price: "10000", start_date: nil, end_date: nil)
     # html passes empty form inputs as "", default arguments are kept for easier testing
     location ||= ""
-    min_price = '0' if min_price == "" || min_price.nil?
-    max_price = '10000' if max_price == "" || max_price.nil?
+    min_price = "0" if min_price == "" || min_price.nil?
+    max_price = "10000" if max_price == "" || max_price.nil?
     start_date = Time.new(1900) if start_date == "" || start_date.nil?
     end_date = Time.new(1900) if end_date == "" || end_date.nil?
     p "INSIDE FILTER"
@@ -28,7 +29,7 @@ class Search
     p end_date
     unless location.empty?
       results = DatabaseConnection.query(
-        "SELECT bnbs.id, bnbs.name, bnbs.location, bnbs.price, bnbs.user_id, bookings.start_date, bookings.end_date
+        "SELECT bnbs.id, bnbs.name, bnbs.location, bnbs.price, bnbs.user_id, bnbs.description, bookings.start_date, bookings.end_date
         FROM bnbs
         LEFT JOIN bookings
         ON bnbs.id = bookings.bnb_id
@@ -42,7 +43,7 @@ class Search
       )
     else
       results = DatabaseConnection.query(
-        "SELECT bnbs.id, bnbs.name, bnbs.location, bnbs.price, bnbs.user_id, bookings.start_date, bookings.end_date
+        "SELECT bnbs.id, bnbs.name, bnbs.location, bnbs.price, bnbs.user_id, bnbs.description, bookings.start_date, bookings.end_date
         FROM bnbs
         LEFT JOIN bookings
         ON bnbs.id = bookings.bnb_id
@@ -57,8 +58,8 @@ class Search
     return unless results.any?
     results.map do |result|
       Search.new(
-        bnb_id: result['id'], name: result['name'], location: result['location'],
-        price: result['price'], user_id: result['user_id']
+        bnb_id: result["id"], name: result["name"], location: result["location"],
+        price: result["price"], user_id: result["user_id"], description: result["description"],
       )
     end
   end
