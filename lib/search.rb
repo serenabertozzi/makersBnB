@@ -13,13 +13,15 @@ class Search
     @user_id = user_id
   end
 
-  def self.filter(location: "", min_price: '0', max_price: '10000', start_date: Time.now, end_date: Time.now)
+  def self.filter(location: "", min_price: '0', max_price: '10000', start_date: nil, end_date: nil)
+    # html passes empty form inputs as "", default arguments are kept for easier testing
     location ||= ""
     min_price = '0' if min_price == "" || min_price.nil?
     max_price = '10000' if max_price == "" || max_price.nil?
-    start_date = Time.now if start_date == "" || max_price.nil?
-    end_date = Time.now if end_date == "" || max_price.nil?
+    start_date = Time.new(1900) if start_date == "" || start_date.nil?
+    end_date = Time.new(1900) if end_date == "" || end_date.nil?
     p "INSIDE FILTER"
+    p location
     p min_price
     p max_price
     p start_date
