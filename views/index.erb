@@ -8,10 +8,7 @@
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
   <script>
-    $(
-      
-      
-      function() {
+    $(function() {
     var dateFormat = "mm/dd/yy",
       from = $( "#from" )
         .datepicker({
@@ -19,8 +16,8 @@
           changeYear: true,
           numberOfMonths: 1,
           minDate: 0,
-
         })
+
         .on( "change", function() {
           to.datepicker( "option", "minDate", getDate( this ) );
         }),
@@ -35,7 +32,6 @@
         from.datepicker( "option", "maxDate", getDate( this ) );
       });
 
- 
     function getDate( element ) {
       var date;
       try {
