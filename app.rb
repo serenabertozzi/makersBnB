@@ -131,6 +131,10 @@ class Makersbnb < Sinatra::Base
 
   post "/user/booking/:bnb_id/new" do
     if session[:user_id]
+      if params[:start_date] == "" || params[:start_date].nil? || params[:end_date] == "" || params[:end_date].nil?
+        flash[:notice] = "Please enter a start and end date"
+        redirect("/listings/bnb/#{params[:bnb_id]}?start_date=#{params[:start_date]}&end_date=#{params[:end_date]}")
+      end
       if Bnb.available?(bnb_id: params[:bnb_id], start_date: params[:start_date], end_date: params[:end_date])
         booking = Booking.create(start_date: params[:start_date], end_date: params[:end_date], bnb_id: params[:bnb_id], user_id: session[:user_id])
         flash[:notice] = "Your booking ##{booking.id} has been confirmed!"

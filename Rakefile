@@ -51,9 +51,11 @@ task :setup do
         bnb_id INT NOT NULL,
         user_id INT NOT NULL,
         FOREIGN KEY (bnb_id)
-        REFERENCES bnbs (id),
+          REFERENCES bnbs (id)
+          ON DELETE CASCADE,
         FOREIGN KEY (user_id)
-        REFERENCES users (id)
+          REFERENCES users (id)
+          ON DELETE CASCADE
        );"
     )
 
