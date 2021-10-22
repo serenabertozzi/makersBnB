@@ -70,7 +70,7 @@ class Makersbnb < Sinatra::Base
   post "/user/login" do
     user = User.log_in(email: params[:email], password: params[:password])
     unless user
-      flash[:notice_login] = "Password did not match, please try again"
+      flash[:notice_login] = "Password did not match or wrong email, please try again"
       redirect(:'user/login')
     else
       session[:user_id] = user.id
