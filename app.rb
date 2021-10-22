@@ -74,7 +74,7 @@ class Makersbnb < Sinatra::Base
       redirect(:'user/login')
     else
       session[:user_id] = user.id
-      redirect "/"
+      session[:previous_url] ? redirect("#{session[:previous_url]}") : redirect("/")
     end
   end
 
@@ -131,12 +131,21 @@ class Makersbnb < Sinatra::Base
 
   post "/user/booking/:bnb_id/new" do
     if session[:user_id]
-      booking = Booking.create(start_date: params[:start_date], end_date: params[:end_date], bnb_id: params[:bnb_id], user_id: session[:user_id])
-      flash[:notice] = "Your booking ##{booking.id} has been confirmed!"
+      if Bnb.available?(bnb_id: params[:bnb_id], start_date: params[:start_date], end_date: params[:end_date])
+        booking = Booking.create(start_date: params[:start_date], end_date: params[:end_date], bnb_id: params[:bnb_id], user_id: session[:user_id])
+        flash[:notice] = "Your booking ##{booking.id} has been confirmed!"
+        redirect("/listings/bnb/#{params[:bnb_id]}")
+        session[:previous_url] = nil
+      else
+        flash[:notice] = "Sorry, those dates are unavailable"
+        redirect("/listings/bnb/#{params[:bnb_id]}?start_date=#{params[:start_date]}&end_date=#{params[:end_date]}")
+      end
     else
-      flash[:notice] = "Please sign in to book"
+      session[:previous_url] = "/listings/bnb/#{params[:bnb_id]}?start_date=#{params[:start_date]}&end_date=#{params[:end_date]}"
+      link = "<a href=/user/login>log in</a>"    
+      flash[:notice] = "Please #{link} to book"
+      redirect("/listings/bnb/#{params[:bnb_id]}?start_date=#{params[:start_date]}&end_date=#{params[:end_date]}")
     end
-    redirect("listings/bnb/#{params[:bnb_id]}")
   end
 
   patch "/user/dashboard/:id/bnb/:bnb_id" do

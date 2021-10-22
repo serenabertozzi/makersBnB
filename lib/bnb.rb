@@ -31,8 +31,9 @@ class Bnb
     result = DatabaseConnection.query(
       "SELECT * FROM bookings
       WHERE bnb_id = $1
-      AND ($2 BETWEEN start_date AND end_date)
-      OR ($3 BETWEEN start_date AND end_date);",
+      AND (($2 BETWEEN start_date AND end_date) OR ($3 BETWEEN start_date AND end_date))
+      OR bnb_id = $1 AND ((start_date BETWEEN $2 AND $3) OR (end_date BETWEEN $2 AND $3))
+      ;",
       [bnb_id, start_date, end_date]
     )
     !result.any?

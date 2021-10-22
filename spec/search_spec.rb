@@ -71,6 +71,13 @@ describe Search do
       expect(result3_bnbs).not_to include london_bnb1
       expect(result3_bnbs).not_to include london_bnb2
     end
+    
+    it ' MANCHESTER AVAILABLE' do
+      p "MANCHESTER ID IN PREVIOUS TEST --------"
+      p manchester_bnb2
+      result = Bnb.available?(bnb_id: manchester_bnb2, start_date: Time.new(2021, 1), end_date: Time.new(2021, 4))
+      expect(result).to eq true
+    end
 
     it 'can filter by date availability' do
       booking = create_booking(bnb_id: manchester_bnb1, user_id: host_user_id, start_date: Time.new(2021, 2), end_date: Time.new(2021, 3))
