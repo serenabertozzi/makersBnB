@@ -2,7 +2,7 @@ require "json"
 
 class Calendar
   def initialize(bookings)
-    @bookings = bookings
+    @bookings = bookings || []
   end
 
   def events
