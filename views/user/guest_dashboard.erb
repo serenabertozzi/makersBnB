@@ -18,10 +18,10 @@
               </div>
               <div class="col-md-8">
                 <div class="card-body">
-                  <h5 class="card-title"><%= find_bnb(reservation.bnb_id) %></h5>
+                  <h5 class="card-title"><%= find_bnb(reservation.bnb_id).name %></h5>
                   <p class="card-text"><small class="text-muted">Start date: <%= reservation.start_date %></small></p>
                   <p class="card-text"><small class="text-muted">End date: <%= reservation.end_date %></small></p>
-                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                  <p class="card-text"><%= truncate(find_bnb(reservation.bnb_id).description) %></p>
                     <form style="display: inline;" action="/user/dashboard/<%= @user_id %>/booking/<%= reservation.id %>" method="post">
                         <input type='hidden' name='_method' value='DELETE'/>
                         <input class="btn btn-dark mx-2" type="submit" value="Delete" />
