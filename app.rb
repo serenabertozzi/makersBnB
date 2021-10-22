@@ -8,12 +8,13 @@ require "./lib/calendar"
 require "./lib/search"
 
 class Makersbnb < Sinatra::Base
+  enable :sessions
+  enable :method_override
+
   configure :development do
     register Sinatra::Reloader
     register Sinatra::Flash
   end
-  enable :sessions
-  enable :method_override
 
   before do
     @user = User.find(id: session[:user_id]) if session[:user_id]
@@ -112,8 +113,7 @@ class Makersbnb < Sinatra::Base
     @bnb = Bnb.find(id: params[:id])
     @user_id = session[:user_id]
     @bookings = Booking.find_by_bnb(bnb_id: params[:id]) if @user
-    @dates = Calendar.new
-    @bookings.each { |reservation| @dates.table(reservation.start_date, reservation.end_date) } if @user && @bookings
+    @calendar = Calendar.new(@bookings) if @bookings
     erb :'listings/bnb'
   end
 
@@ -141,7 +141,7 @@ class Makersbnb < Sinatra::Base
       end
     else
       session[:previous_url] = "/listings/bnb/#{params[:bnb_id]}?start_date=#{params[:start_date]}&end_date=#{params[:end_date]}"
-      link = "<a href=/user/login>log in</a>"    
+      link = "<a href=/user/login>log in</a>"
       flash[:notice] = "Please #{link} to book"
       redirect("/listings/bnb/#{params[:bnb_id]}?start_date=#{params[:start_date]}&end_date=#{params[:end_date]}")
     end

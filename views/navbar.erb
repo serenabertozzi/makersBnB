@@ -13,7 +13,7 @@
         </ul>
         <% if @user %>
         <form action="/user/dashboard">
-	        <input type="submit" value="<%= @user.first_name %>" class="btn btn-link mx-2">
+	        <input type="submit" value="<%= @user.first_name %>" class="btn btn-link mx-2 link-light">
         </form>
         <form action="/log_out" method="post">
 	        <input type="submit" value="Log out" class="btn btn-light mx-2">

@@ -46,6 +46,31 @@
     <div class="col-9">
       <h2>Description:</h2>
       <p><%= @bnb.description %></p>
+      <h3> Bookings: </h3>
+
+          <% if @user %>
+          <% if @bookings %>
+            <% @bookings.each do |reservation| %>
+                <div class="card" style="width: 18rem;">
+                  <div class="card-body">
+                    <h6 class="card-subtitle mb-2 text-muted">Check-in: <%= reservation.start_date %> </h6>
+                    <h6 class="card-subtitle mb-2 text-muted">Check-out: <%= reservation.end_date %> </h6>
+                  </div>
+                  <div class="d-flex flex-direction-row p-2">
+                    <form action="/user/dashboard/<%= @user_id %>/bnb/<%= reservation.bnb_id %>/booking/<%= reservation.id %>" method="post">
+                        <input type='hidden' name='_method' value='DELETE'/>
+                        <input class="btn btn-dark mx-2" type="submit" value="Delete" />
+                      </form>
+                      <form action="/user/dashboard/<%= @user_id %>/bnb/<%= reservation.bnb_id %>/booking/<%= reservation.id %>/edit" method="get">
+                        <input class="btn btn-dark mx-2" type="submit" value="Edit" />
+                    </form>
+                    </div>
+                </div>
+            <% end %>
+            <% else %>
+            No Bookings
+            <% end %>
+            <% end %>
     </div>
     <div class="col-3">
       <h4>Price: $<%= @bnb.price %> per night</h4>
@@ -64,42 +89,28 @@
   </div>
 </div>
 
+<div class="container">
+  <div class="row">
+       <div class="col-8 mx-auto">
+<% if @calendar %>
+<h3> Availabilty: </h3>
+  <div id='calendar'></div>
+          <script>
+            document.addEventListener('DOMContentLoaded', function() {
+              var calendarEl = document.getElementById('calendar');
+              var calendar = new FullCalendar.Calendar(calendarEl, {
+                headerToolbar: {
+                  left: 'prev,next today',
+                  center: 'title',
+                  right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+                events: <%= @calendar.events.to_json %>,
+                initialView: 'dayGridMonth',
+                themeSystem: 'bootstrap'
+              });
+              calendar.render();
+            });
 
-
- <% if @user %>
- <% if @bookings %>
-  <% @bookings.each do |reservation| %>
-      <div class="card" style="width: 18rem;">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <h6 class="card-subtitle mb-2 text-muted">Check-in: <%= reservation.start_date %> </h6>
-          <h6 class="card-subtitle mb-2 text-muted">Check-out: <%= reservation.end_date %> </h6>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-          <form style="display: inline;" action="/user/dashboard/<%= @user_id %>/bnb/<%= reservation.bnb_id %>/booking/<%= reservation.id %>" method="post">
-              <input type='hidden' name='_method' value='DELETE'/>
-              <input class="btn btn-dark mx-2" type="submit" value="Delete" />
-            </form>
-            <form style="display: inline;" action="/user/dashboard/<%= @user_id %>/bnb/<%= reservation.bnb_id %>/booking/<%= reservation.id %>/edit" method="get">
-              <input class="btn btn-dark mx-2" type="submit" value="Edit" />
-          </form>
-      </div>
-  <% end %>
-  <% else %>
-  No Bookings
-  <% end %>
-  <% end %>
-
-
-
-
- <% if @user %>
-  <% @dates.avalibility.each do |date| %>
-  <% if date.last == false %>
-  <span style="background-color: red;"> | <%= date.first %> </span>
-  <% else %>
-    | <span style="color: green;"> <%= date.first %> </span>
-  <% end %>
-  <% end %>
-
-  <% end %>
+          </script>
+<% end %>
+</div></div></div>
