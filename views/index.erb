@@ -10,11 +10,11 @@
       </div>
     </div>
     <div class="row w-100">
-      <div class="col-12 col-lg-6 mx-auto">
+      <div class="col-12 col-lg-10 mx-auto">
         <form action="/search" method="GET" class="d-flex input-group">
-          <input name="location" class="form-control p-3 md-p-0" type="text" placeholder="location" aria-label="Search" style="font-size: 30px">
-          <input name="start_date" class="form-control p-3 md-p-0" type="date" aria-label="Search" style="font-size: 30px" required>
-          <input name="end_date" class="form-control p-3 md-p-0" type="date" aria-label="Search" style="font-size: 30px" required>
+          <input name="location" class="form-control p-3 md-p-0" type="text" placeholder="Where do you want to go..." aria-label="Search" style="font-size: 25px">
+          <input name="start_date" type="text" placeholder="Start date" onfocus="(this.type='date')" onblur="(this.type='text')" class="form-control p-3 md-p-0" type="date" aria-label="Search" style="font-size: 25px">
+          <input name="end_date" type="text" placeholder="End date" onfocus="(this.type='date')" onblur="(this.type='text')" class="form-control p-3 md-p-0" type="date" aria-label="Search" style="font-size: 25px">
           <button class="btn btn-dark p-4 hero-button" type="submit"><i class="fas fa-search" style="font-size: 25px"></i></button>
         </form>
          <div class="col-12 mx-auto d-flex justify-content-center mt-3">

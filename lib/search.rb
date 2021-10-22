@@ -19,9 +19,8 @@ class Search
     location ||= ""
     min_price = "0" if min_price == "" || min_price.nil?
     max_price = "10000" if max_price == "" || max_price.nil?
-    start_date = Time.new(1900) if start_date == "" || start_date.nil?
+    start_date = Time.new(2100) if start_date == "" || start_date.nil?
     end_date = Time.new(1900) if end_date == "" || end_date.nil?
-
     unless location.empty?
       results = DatabaseConnection.query(
         "SELECT id, name, location, price, description, user_id
