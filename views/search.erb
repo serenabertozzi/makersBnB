@@ -39,7 +39,7 @@
 
 <div class="container">
   <div class="row">
-    <% if @bnbs %>
+    <% if @bnbs.first %>
       <% @bnbs.each do |bnb| %>
             <div class="col-3 my-2 mx-auto text-align-center">
               <div class="card" style="width: 18rem;">
@@ -54,16 +54,15 @@
                 </div>
               </div>
             </div>
-          </div>
-        </div>
       <% end %>
-    <% else %>
-    <div class="col-12 mt-5">
-    <p class="display-4">Sorry, no spaces available.</p>
-    <p>Try adjusting your search by changing your dates or by removing filters. Or..</p>
-    <div class="col-12 mx-auto d-flex justify-content-center mt-3">
-      <a class="btn btn-dark m-2 hero-button" aria-current="page" href="/listings/all" style="font-size: 30px">Get inspired</a>
-    </div>
+    <% elsif @bnb == nil %>
+      <div class="col-12 mt-5">
+        <p class="display-4">Sorry, no spaces available.</p>
+        <p>Try adjusting your search by changing your dates or by removing filters. Or..</p>
+        <div class="col-12 mx-auto d-flex justify-content-center /search?location=&start_date=2021-11-11&end_date=2021-11-13mt-3">
+          <a class="btn btn-dark m-2 hero-button" aria-current="page" href="/listings/all" style="font-size: 30px">Get inspired</a>
+        </div>
+      </div>
     <% end %>
   </div>
 </div>
